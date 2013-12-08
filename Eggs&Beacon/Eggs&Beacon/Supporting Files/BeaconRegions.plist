@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>proximityUUID</key>
+		<string></string>
+		<key>identifier</key>
+		<string>Marco&apos;s house</string>
+		<key>major</key>
+		<integer>0</integer>
+		<key>minor</key>
+		<integer>0</integer>
+		<key>notifyEntryStateOnDisplay</key>
+		<true/>
+		<key>notifyOnEntry</key>
+		<true/>
+		<key>notifyOnExit</key>
+		<true/>
+	</dict>
+	<dict>
+		<key>proximityUUID</key>
+		<string></string>
+		<key>identifier</key>
+		<string>Luna park</string>
+		<key>major</key>
+		<integer>0</integer>
+		<key>minor</key>
+		<integer>0</integer>
+		<key>notifyEntryStateOnDisplay</key>
+		<true/>
+		<key>notifyOnEntry</key>
+		<false/>
+		<key>notifyOnExit</key>
+		<true/>
+	</dict>
+</array>
+</plist>
