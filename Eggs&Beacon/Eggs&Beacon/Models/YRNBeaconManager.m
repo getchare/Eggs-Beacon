@@ -8,8 +8,6 @@
 
 #import "YRNBeaconManager.h"
 
-#import <CoreLocation/CoreLocation.h>
-
 
 #define kDefaultConfigurationFileName   @"BeaconsList.plist"
 
@@ -113,7 +111,28 @@
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
-    
+    if([region isKindOfClass:[CLBeaconRegion class]])
+    {
+        CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+        switch(state)
+        {
+            case CLRegionStateInside:
+                if([self delegate] && [self respondsToSelector:@selector(beaconManager:didEnterRegion:)])
+                    [[self delegate] beaconManager:self didEnterRegion:beaconRegion];
+                break;
+            
+            case CLRegionStateOutside:
+                if([self delegate] && [self respondsToSelector:@selector(beaconManager:didExitRegion:)])
+                    [[self delegate] beaconManager:self didExitRegion:beaconRegion];
+                break;
+                
+            case CLRegionStateUnknown:
+                break;
+                
+            default:
+                break;
+        }
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
