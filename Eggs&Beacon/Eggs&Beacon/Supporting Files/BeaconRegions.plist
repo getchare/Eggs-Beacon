@@ -4,9 +4,9 @@
 <array>
 	<dict>
 		<key>proximityUUID</key>
-		<string></string>
+		<string>00000000-0000-0000-0000-000000000000</string>
 		<key>identifier</key>
-		<string>Marco&apos;s house</string>
+		<string>HiBeacon custom</string>
 		<key>major</key>
 		<integer>0</integer>
 		<key>minor</key>
@@ -20,13 +20,17 @@
 	</dict>
 	<dict>
 		<key>proximityUUID</key>
-		<string></string>
+		<string>B0702880-A295-A8AB-F734-031A98A512DE</string>
 		<key>identifier</key>
-		<string>Luna park</string>
-		<key>major</key>
-		<integer>0</integer>
-		<key>minor</key>
-		<integer>0</integer>
+		<string>Mac region</string>
+		<key>notifyEntryStateOnDisplay</key>
+		<true/>
+	</dict>
+	<dict>
+		<key>proximityUUID</key>
+		<string>B9407F30-F5F8-466E-AFF9-25556B57FE6D</string>
+		<key>identifier</key>
+		<string>Estimote</string>
 		<key>notifyEntryStateOnDisplay</key>
 		<true/>
 		<key>notifyOnEntry</key>

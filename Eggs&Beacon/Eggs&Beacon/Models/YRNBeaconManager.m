@@ -114,14 +114,37 @@
             CLBeaconMajorValue major = [majorNumber unsignedIntegerValue];
             NSNumber *minorNumber = regionDictionary[@"minor"];
             CLBeaconMajorValue minor = [minorNumber unsignedIntegerValue];
-            BOOL notifiyOnDisplay = [regionDictionary[@"notifyEntryStateOnDisplay"] boolValue];
-            BOOL notifiyOnEntry = [regionDictionary[@"notifyOnEntry"] boolValue];
-            BOOL notifiyOnExit = [regionDictionary[@"notifyOnExit"] boolValue];
             
-            CLBeaconRegion *newRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID
-                                                                                major:major
-                                                                                minor:minor
-                                                                           identifier:identifier];
+            id plistNotifiyOnDisplay = regionDictionary[@"notifyEntryStateOnDisplay"];
+            BOOL notifiyOnDisplay = plistNotifiyOnDisplay ? [plistNotifiyOnDisplay boolValue] : NO;
+            id plistNotifiyOnEntry = regionDictionary[@"notifyOnEntry"];
+            BOOL notifiyOnEntry = plistNotifiyOnEntry ? [plistNotifiyOnEntry boolValue] : YES;
+            id plistNotifiyOnExit = regionDictionary[@"notifyOnExit"];
+            BOOL notifiyOnExit = plistNotifiyOnExit ? [plistNotifiyOnExit boolValue] : YES;
+            
+            CLBeaconRegion *newRegion;
+            
+            if(majorNumber)
+            {
+                if(minorNumber)
+                {
+                    newRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID
+                                                                        major:major
+                                                                        minor:minor
+                                                                   identifier:identifier];
+                }
+                else
+                {
+                    newRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID
+                                                                        major:major
+                                                                   identifier:identifier];
+                }
+            }
+            else
+            {
+                newRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID
+                                                               identifier:identifier];
+            }
             
             [newRegion setNotifyEntryStateOnDisplay:notifiyOnDisplay];
             [newRegion setNotifyOnEntry:notifiyOnEntry];
@@ -181,7 +204,7 @@
             case CLRegionStateInside:
                 if(![self isInsideBeaconRegion] &&
                    [self delegate] &&
-                   [self respondsToSelector:@selector(beaconManager:didEnterRegion:)])
+                   [[self delegate] respondsToSelector:@selector(beaconManager:didEnterRegion:)])
                 {
                     [self setInsideBeaconRegion:YES];
                     [[self delegate] beaconManager:self didEnterRegion:beaconRegion];
@@ -191,7 +214,7 @@
             case CLRegionStateOutside:
                 if([self isInsideBeaconRegion] &&
                    [self delegate] &&
-                   [self respondsToSelector:@selector(beaconManager:didExitRegion:)])
+                   [[self delegate] respondsToSelector:@selector(beaconManager:didExitRegion:)])
                 {
                     [self setInsideBeaconRegion:NO];
                     [[self delegate] beaconManager:self didExitRegion:beaconRegion];
