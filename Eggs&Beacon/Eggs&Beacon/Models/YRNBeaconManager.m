@@ -84,6 +84,7 @@
     {
         // start monitoring new region
         [[self locationManager] startMonitoringForRegion:region];
+        [[self locationManager] requestStateForRegion:region];
     }
 }
 
