@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *beaconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UILabel *majorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *minorLabel;
 
 @property (nonatomic, strong) YRNBeaconManager *beaconManager;
 
@@ -70,7 +72,24 @@
 - (void)beaconManager:(YRNBeaconManager *)manager didExitRegion:(CLBeaconRegion *)region
 {
     [[self regionLabel] setText:@""];
+    [[self beaconLabel] setText:@""];
+    [[self distanceLabel] setText:@""];
+    [[self majorLabel] setText:@""];
+    [[self minorLabel] setText:@""];
     [[self statusLabel] setText:@"Exited a region"];
+}
+
+- (void)beaconManager:(YRNBeaconManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
+{
+    NSArray *proximityArray = @[@"Unknown", @"Immediate", @"Near", @"Far"];
+    CLBeacon *nearestBeacon = [beacons firstObject];
+    
+    [[self regionLabel] setText:[region identifier]];
+    [[self beaconLabel] setText:[[nearestBeacon proximityUUID] UUIDString]];
+    [[self majorLabel] setText:[[nearestBeacon major] stringValue]];
+    [[self minorLabel] setText:[[nearestBeacon minor] stringValue]];
+    [[self distanceLabel] setText:[proximityArray objectAtIndex:[nearestBeacon proximity]]];
+    [[self statusLabel] setText:@"Ranged a beacon"];
 }
 
 @end

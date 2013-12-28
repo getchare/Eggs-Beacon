@@ -17,6 +17,7 @@
 @optional
 - (void)beaconManager:(YRNBeaconManager *)manager didEnterRegion:(CLBeaconRegion *)region;
 - (void)beaconManager:(YRNBeaconManager *)manager didExitRegion:(CLBeaconRegion *)region;
+- (void)beaconManager:(YRNBeaconManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region;
 
 @end
 

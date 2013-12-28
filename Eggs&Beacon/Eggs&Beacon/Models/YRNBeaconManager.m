@@ -202,22 +202,32 @@
         switch(state)
         {
             case CLRegionStateInside:
-                if(![self isInsideBeaconRegion] &&
-                   [self delegate] &&
-                   [[self delegate] respondsToSelector:@selector(beaconManager:didEnterRegion:)])
+                if(![self isInsideBeaconRegion])
                 {
+                    if([self delegate] &&
+                       [[self delegate] respondsToSelector:@selector(beaconManager:didEnterRegion:)])
+                    {
+                        [[self delegate] beaconManager:self
+                                        didEnterRegion:beaconRegion];
+                    }
+                    
                     [self setInsideBeaconRegion:YES];
-                    [[self delegate] beaconManager:self didEnterRegion:beaconRegion];
+                    [[self locationManager] startRangingBeaconsInRegion:beaconRegion];
                 }
                 break;
             
             case CLRegionStateOutside:
-                if([self isInsideBeaconRegion] &&
-                   [self delegate] &&
-                   [[self delegate] respondsToSelector:@selector(beaconManager:didExitRegion:)])
+                if([self isInsideBeaconRegion])
                 {
+                    if([self delegate] &&
+                       [[self delegate] respondsToSelector:@selector(beaconManager:didExitRegion:)])
+                    {
+                        [[self delegate] beaconManager:self
+                                         didExitRegion:beaconRegion];
+                    }
+                    
                     [self setInsideBeaconRegion:NO];
-                    [[self delegate] beaconManager:self didExitRegion:beaconRegion];
+                    [[self locationManager] stopRangingBeaconsInRegion:beaconRegion];
                 }
                 break;
                 
@@ -232,7 +242,16 @@
 
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
-    
+    if([beacons count] > 0)
+    {
+        if([self delegate] &&
+           [[self delegate] respondsToSelector:@selector(beaconManager:didRangeBeacons:inRegion:)])
+        {
+            [[self delegate] beaconManager:self
+                           didRangeBeacons:beacons
+                                  inRegion:region];
+        }
+    }
 }
 
 @end
