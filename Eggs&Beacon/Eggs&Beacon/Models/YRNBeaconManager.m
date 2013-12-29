@@ -7,10 +7,9 @@
 //
 
 #import "YRNBeaconManager.h"
-
+#import "CLBeaconRegion+YRNBeaconManager.h"
 
 #define kDefaultConfigurationFileName   @"BeaconsList.plist"
-
 
 @interface YRNBeaconManager () <CLLocationManagerDelegate>
 
@@ -19,7 +18,6 @@
 @property (nonatomic, assign, getter = isInsideBeaconRegion) BOOL insideBeaconRegion;
 
 @end
-
 
 @implementation YRNBeaconManager
 
@@ -68,7 +66,6 @@
     }
 }
 
-
 #pragma mark - Registering beacon regions
 
 - (void)registerBeaconRegion:(CLBeaconRegion *)region
@@ -99,66 +96,13 @@
 
 - (NSArray *)beaconRegionsFromConfigurationFile
 {
-    NSMutableArray *beaconRegions = [NSMutableArray array];
+    NSArray *beaconRegions;
+    
     NSString *filePath = [[NSBundle mainBundle] pathForResource:[self configurationFileName]
                                                          ofType:@"plist"];
-    if(filePath)
-    {
-        NSArray *regionArray = [NSArray arrayWithContentsOfFile:filePath];
-        
-        for (NSDictionary *regionDictionary in regionArray)
-        {
-            NSString *UUIDString = regionDictionary[@"proximityUUID"];
-            NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:UUIDString];
-            NSString *identifier = regionDictionary[@"identifier"];
-            NSNumber *majorNumber = regionDictionary[@"major"];
-            CLBeaconMajorValue major = [majorNumber unsignedIntegerValue];
-            NSNumber *minorNumber = regionDictionary[@"minor"];
-            CLBeaconMajorValue minor = [minorNumber unsignedIntegerValue];
-            
-            id plistNotifiyOnDisplay = regionDictionary[@"notifyEntryStateOnDisplay"];
-            BOOL notifiyOnDisplay = plistNotifiyOnDisplay ? [plistNotifiyOnDisplay boolValue] : NO;
-            id plistNotifiyOnEntry = regionDictionary[@"notifyOnEntry"];
-            BOOL notifiyOnEntry = plistNotifiyOnEntry ? [plistNotifiyOnEntry boolValue] : YES;
-            id plistNotifiyOnExit = regionDictionary[@"notifyOnExit"];
-            BOOL notifiyOnExit = plistNotifiyOnExit ? [plistNotifiyOnExit boolValue] : YES;
-            
-            CLBeaconRegion *newRegion;
-            
-            if(majorNumber)
-            {
-                if(minorNumber)
-                {
-                    newRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID
-                                                                        major:major
-                                                                        minor:minor
-                                                                   identifier:identifier];
-                }
-                else
-                {
-                    newRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID
-                                                                        major:major
-                                                                   identifier:identifier];
-                }
-            }
-            else
-            {
-                newRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID
-                                                               identifier:identifier];
-            }
-            
-            [newRegion setNotifyEntryStateOnDisplay:notifiyOnDisplay];
-            [newRegion setNotifyOnEntry:notifiyOnEntry];
-            [newRegion setNotifyOnExit:notifiyOnExit];
-            
-            [beaconRegions addObject:newRegion];
-        }
+    if (filePath) {
+        beaconRegions = [CLBeaconRegion beaconRegionsWithContentsOfFile:filePath];
     }
-    else
-    {
-        // no configuration file
-    }
-    
     return beaconRegions;
 }
 
