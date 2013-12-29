@@ -25,7 +25,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[self beaconManager] registerBeaconRegionsFromConfigurationFile];
+    NSString *configurationFilePath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions"
+                                                                      ofType:@"plist"];
+    [[self beaconManager] registerBeaconRegions:[CLBeaconRegion beaconRegionsWithContentsOfFile:configurationFilePath]];
 }
 
 #pragma mark - Beacon manager
@@ -33,7 +35,7 @@
 - (YRNBeaconManager *)beaconManager
 {
     if (!_beaconManager) {
-        _beaconManager = [[YRNBeaconManager alloc] initWithConfiguration:@"BeaconRegions"];
+        _beaconManager = [[YRNBeaconManager alloc] init];
         [_beaconManager setDelegate:self];
     }
     return _beaconManager;
