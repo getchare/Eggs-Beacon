@@ -8,6 +8,7 @@
 
 #import "YRNRangedBeaconsViewController.h"
 #import "YRNBeaconManager.h"
+#import "YRNBeaconDetailViewController.h"
 
 @interface YRNRangedBeaconsViewController () <YRNBeaconManagerDelegate>
 
@@ -25,11 +26,6 @@
 {
     [super viewDidLoad];
     [[self beaconManager] registerBeaconRegionsFromConfigurationFile];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 #pragma mark - Beacon manager
@@ -55,23 +51,26 @@
     static NSString *CellIdentifier = @"BeaconCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
                                                             forIndexPath:indexPath];
-    
     CLBeacon *beacon = [self beacons][indexPath.row];
     cell.textLabel.text = [beacon description];
     return cell;
 }
 
-/*
 #pragma mark - Navigation
 
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+                 sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"BeaconDetail"]) {
+        if ([sender isKindOfClass:[UITableViewCell class]]) {
+            UITableViewCell *cell = sender;
+            NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
+            CLBeacon *beacon = [self beacons][[indexPath row]];
+            YRNBeaconDetailViewController *beaconDetailViewController = [segue destinationViewController];
+            [beaconDetailViewController setBeacon:beacon];
+        }
+    }
 }
-
- */
 
 #pragma mark - YRNBeaconManagerDelegate methods
 
@@ -83,6 +82,5 @@
     [self setBeacons:[beacons copy]];
     [[self tableView] reloadData];
 }
-
 
 @end
