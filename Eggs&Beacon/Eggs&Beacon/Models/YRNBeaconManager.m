@@ -7,14 +7,10 @@
 //
 
 #import "YRNBeaconManager.h"
-#import "CLBeaconRegion+YRNBeaconManager.h"
-
-#define kDefaultConfigurationFileName   @"BeaconsList.plist"
 
 @interface YRNBeaconManager () <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) NSString *configurationFileName;
 @property (nonatomic, assign, getter = isInsideBeaconRegion) BOOL insideBeaconRegion;
 
 @end
@@ -22,24 +18,6 @@
 @implementation YRNBeaconManager
 
 #pragma mark - Initialization
-
-- (instancetype)initWithConfiguration:(NSString *)fileName
-{
-    self = [super init];
-    
-    if(self)
-    {
-        [self setConfigurationFileName:fileName];
-        [self setInsideBeaconRegion:NO];
-    }
-    
-    return self;
-}
-
-- (instancetype)init
-{
-    return [self initWithConfiguration:kDefaultConfigurationFileName];
-}
 
 - (void)initLocationServices
 {
@@ -94,32 +72,16 @@
     [[self locationManager] stopMonitoringForRegion:region];
 }
 
-- (NSArray *)beaconRegionsFromConfigurationFile
+- (void)registerBeaconRegions:(NSArray *)beaconRegions
 {
-    NSArray *beaconRegions;
-    
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:[self configurationFileName]
-                                                         ofType:@"plist"];
-    if (filePath) {
-        beaconRegions = [CLBeaconRegion beaconRegionsWithContentsOfFile:filePath];
-    }
-    return beaconRegions;
-}
-
-- (void)registerBeaconRegionsFromConfigurationFile
-{
-    NSArray *beaconRegions = [self beaconRegionsFromConfigurationFile];
-    
     for (CLBeaconRegion *region in beaconRegions)
     {
         [self registerBeaconRegion:region];
     }
 }
 
-- (void)unregisterBeaconRegionsFromConfigurationFile
-{
-    NSArray *beaconRegions = [self beaconRegionsFromConfigurationFile];
-    
+- (void)unregisterBeaconRegions:(NSArray *)beaconRegions
+{    
     for (CLBeaconRegion *region in beaconRegions)
     {
         [self unregisterBeaconRegion:region];

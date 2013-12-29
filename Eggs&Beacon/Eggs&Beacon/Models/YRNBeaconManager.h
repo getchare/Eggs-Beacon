@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import <CoreLocation/CoreLocation.h>
+#import "CLBeaconRegion+YRNBeaconManager.h"
 
 @class YRNBeaconManager;
 
@@ -21,14 +21,11 @@
 
 @end
 
-
 @interface YRNBeaconManager : NSObject
 
 @property (nonatomic, weak) id<YRNBeaconManagerDelegate> delegate;
 
-- (instancetype)initWithConfiguration:(NSString *)fileName;
-
 - (void)registerBeaconRegion:(CLBeaconRegion *)region;
-- (void)registerBeaconRegionsFromConfigurationFile;
+- (void)registerBeaconRegions:(NSArray *)regions;
 
 @end
