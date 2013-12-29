@@ -149,8 +149,7 @@
             case CLRegionStateInside:
                 if(![self isInsideBeaconRegion])
                 {
-                    if([self delegate] &&
-                       [[self delegate] respondsToSelector:@selector(beaconManager:didEnterRegion:)])
+                    if([[self delegate] respondsToSelector:@selector(beaconManager:didEnterRegion:)])
                     {
                         [[self delegate] beaconManager:self
                                         didEnterRegion:beaconRegion];
@@ -164,8 +163,7 @@
             case CLRegionStateOutside:
                 if([self isInsideBeaconRegion])
                 {
-                    if([self delegate] &&
-                       [[self delegate] respondsToSelector:@selector(beaconManager:didExitRegion:)])
+                    if([[self delegate] respondsToSelector:@selector(beaconManager:didExitRegion:)])
                     {
                         [[self delegate] beaconManager:self
                                          didExitRegion:beaconRegion];
@@ -189,8 +187,7 @@
 {
     if([beacons count] > 0)
     {
-        if([self delegate] &&
-           [[self delegate] respondsToSelector:@selector(beaconManager:didRangeBeacons:inRegion:)])
+        if([[self delegate] respondsToSelector:@selector(beaconManager:didRangeBeacons:inRegion:)])
         {
             [[self delegate] beaconManager:self
                            didRangeBeacons:beacons
