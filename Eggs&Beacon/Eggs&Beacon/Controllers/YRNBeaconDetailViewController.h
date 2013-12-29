@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface YRNBeaconDetailViewController : UIViewController
+
+@property (nonatomic, strong) CLBeacon *beacon;
 
 @end
