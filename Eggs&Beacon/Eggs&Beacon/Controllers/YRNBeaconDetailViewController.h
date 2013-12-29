@@ -1,5 +1,5 @@
 //
-//  YRNMainViewController.h
+//  YRNBeaconDetailViewController.h
 //  Eggs&Beacon
 //
 //  Created by Marco on 27/12/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YRNMainViewController : UIViewController
+@interface YRNBeaconDetailViewController : UIViewController
 
 @end

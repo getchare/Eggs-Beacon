@@ -22,7 +22,7 @@
 		049420C91854DE1900D2EC77 /* YRNBeaconManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 049420C81854DE1900D2EC77 /* YRNBeaconManager.m */; };
 		049420CB1854DE9E00D2EC77 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 049420CA1854DE9E00D2EC77 /* CoreLocation.framework */; };
 		049420CD1854F87300D2EC77 /* BeaconRegions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 049420CC1854F87300D2EC77 /* BeaconRegions.plist */; };
-		04BA0CAB186DC9C80030D20C /* YRNMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BA0CAA186DC9C80030D20C /* YRNMainViewController.m */; };
+		04BA0CAB186DC9C80030D20C /* YRNBeaconDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BA0CAA186DC9C80030D20C /* YRNBeaconDetailViewController.m */; };
 		04BA0CAD186DCAE00030D20C /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04BA0CAC186DCAE00030D20C /* iPhone.storyboard */; };
 		4B2CE34DEA764C57801EAF54 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB85FB26F57342ECADE3B60F /* libPods.a */; };
 		4D98E7DE187074150034C6EB /* YRNRangedBeaconsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D98E7DD187074150034C6EB /* YRNRangedBeaconsViewController.m */; };
@@ -59,8 +59,8 @@
 		049420C81854DE1900D2EC77 /* YRNBeaconManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRNBeaconManager.m; path = Models/YRNBeaconManager.m; sourceTree = "<group>"; };
 		049420CA1854DE9E00D2EC77 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		049420CC1854F87300D2EC77 /* BeaconRegions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = BeaconRegions.plist; path = "Supporting Files/BeaconRegions.plist"; sourceTree = "<group>"; };
-		04BA0CA9186DC9C80030D20C /* YRNMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNMainViewController.h; path = Controllers/YRNMainViewController.h; sourceTree = "<group>"; };
-		04BA0CAA186DC9C80030D20C /* YRNMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRNMainViewController.m; path = Controllers/YRNMainViewController.m; sourceTree = "<group>"; };
+		04BA0CA9186DC9C80030D20C /* YRNBeaconDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNBeaconDetailViewController.h; path = Controllers/YRNBeaconDetailViewController.h; sourceTree = "<group>"; };
+		04BA0CAA186DC9C80030D20C /* YRNBeaconDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRNBeaconDetailViewController.m; path = Controllers/YRNBeaconDetailViewController.m; sourceTree = "<group>"; };
 		04BA0CAC186DCAE00030D20C /* iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = iPhone.storyboard; path = Views/iPhone.storyboard; sourceTree = "<group>"; };
 		4D98E7DC187074140034C6EB /* YRNRangedBeaconsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNRangedBeaconsViewController.h; path = Controllers/YRNRangedBeaconsViewController.h; sourceTree = "<group>"; };
 		4D98E7DD187074150034C6EB /* YRNRangedBeaconsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRNRangedBeaconsViewController.m; path = Controllers/YRNRangedBeaconsViewController.m; sourceTree = "<group>"; };
@@ -173,8 +173,8 @@
 		049420BA1854C81E00D2EC77 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				04BA0CA9186DC9C80030D20C /* YRNMainViewController.h */,
-				04BA0CAA186DC9C80030D20C /* YRNMainViewController.m */,
+				04BA0CA9186DC9C80030D20C /* YRNBeaconDetailViewController.h */,
+				04BA0CAA186DC9C80030D20C /* YRNBeaconDetailViewController.m */,
 				4D98E7DC187074140034C6EB /* YRNRangedBeaconsViewController.h */,
 				4D98E7DD187074150034C6EB /* YRNRangedBeaconsViewController.m */,
 			);
@@ -343,7 +343,7 @@
 				049420C41854CDF500D2EC77 /* main.m in Sources */,
 				049420BF1854CDD900D2EC77 /* YRNAppDelegate.m in Sources */,
 				049420C91854DE1900D2EC77 /* YRNBeaconManager.m in Sources */,
-				04BA0CAB186DC9C80030D20C /* YRNMainViewController.m in Sources */,
+				04BA0CAB186DC9C80030D20C /* YRNBeaconDetailViewController.m in Sources */,
 				4D98E7DE187074150034C6EB /* YRNRangedBeaconsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

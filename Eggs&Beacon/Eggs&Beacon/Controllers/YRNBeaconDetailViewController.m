@@ -1,16 +1,16 @@
 //
-//  YRNMainViewController.m
+//  YRNBeaconDetailViewController.m
 //  Eggs&Beacon
 //
 //  Created by Marco on 27/12/13.
 //  Copyright (c) 2013 Yron Lab. All rights reserved.
 //
 
-#import "YRNMainViewController.h"
+#import "YRNBeaconDetailViewController.h"
 
 #import "YRNBeaconManager.h"
 
-@interface YRNMainViewController () <YRNBeaconManagerDelegate>
+@interface YRNBeaconDetailViewController () <YRNBeaconManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *regionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *beaconLabel;
@@ -24,7 +24,7 @@
 @end
 
 
-@implementation YRNMainViewController
+@implementation YRNBeaconDetailViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
