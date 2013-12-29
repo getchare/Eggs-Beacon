@@ -76,7 +76,9 @@
 {
     for (CLBeaconRegion *region in beaconRegions)
     {
-        [self registerBeaconRegion:region];
+        if ([region isKindOfClass:[CLBeaconRegion class]]) {
+            [self registerBeaconRegion:region];
+        }
     }
 }
 
@@ -84,7 +86,9 @@
 {    
     for (CLBeaconRegion *region in beaconRegions)
     {
-        [self unregisterBeaconRegion:region];
+        if ([region isKindOfClass:[CLBeaconRegion class]]) {
+            [self unregisterBeaconRegion:region];
+        }
     }
 }
 
