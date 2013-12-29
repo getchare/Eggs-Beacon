@@ -9,7 +9,7 @@
 #import "YRNRangedBeaconsViewController.h"
 #import "YRNBeaconManager.h"
 
-@interface YRNRangedBeaconsViewController ()
+@interface YRNRangedBeaconsViewController () <YRNBeaconManagerDelegate>
 
 @property (nonatomic, strong) YRNBeaconManager *beaconManager;
 
@@ -19,16 +19,28 @@
 
 @implementation YRNRangedBeaconsViewController
 
+#pragma mark - UIViewController
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    [[self beaconManager] registerBeaconRegionsFromConfigurationFile];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Beacon manager
+
+- (YRNBeaconManager *)beaconManager
+{
+    if (!_beaconManager) {
+        _beaconManager = [[YRNBeaconManager alloc] initWithConfiguration:@"BeaconRegions"];
+        [_beaconManager setDelegate:self];
+    }
+    return _beaconManager;
 }
 
 #pragma mark - Table view data source
@@ -40,12 +52,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"BeaconCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
                                                             forIndexPath:indexPath];
     
-    // Configure the cell...
-    
+    CLBeacon *beacon = [self beacons][indexPath.row];
+    cell.textLabel.text = [beacon description];
     return cell;
 }
 
@@ -60,5 +72,17 @@
 }
 
  */
+
+#pragma mark - YRNBeaconManagerDelegate methods
+
+- (void)beaconManager:(YRNBeaconManager *)manager
+      didRangeBeacons:(NSArray *)beacons
+             inRegion:(CLBeaconRegion *)region
+{
+    [self setTitle:[region identifier]];
+    [self setBeacons:[beacons copy]];
+    [[self tableView] reloadData];
+}
+
 
 @end
