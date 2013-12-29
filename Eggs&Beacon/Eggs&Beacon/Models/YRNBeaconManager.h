@@ -26,7 +26,7 @@
 
 @property (nonatomic, weak) id<YRNBeaconManagerDelegate> delegate;
 
-- (id)initWithConfiguration:(NSString *)fileName;
+- (instancetype)initWithConfiguration:(NSString *)fileName;
 
 - (void)registerBeaconRegion:(CLBeaconRegion *)region;
 - (void)registerBeaconRegionsFromConfigurationFile;

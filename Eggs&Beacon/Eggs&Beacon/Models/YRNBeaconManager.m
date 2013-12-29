@@ -25,7 +25,7 @@
 
 #pragma mark - Initialization
 
-- (id)initWithConfiguration:(NSString *)fileName
+- (instancetype)initWithConfiguration:(NSString *)fileName
 {
     self = [super init];
     
@@ -38,7 +38,7 @@
     return self;
 }
 
-- (id)init
+- (instancetype)init
 {
     return [self initWithConfiguration:kDefaultConfigurationFileName];
 }
