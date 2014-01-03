@@ -8,40 +8,16 @@
 
 #import "YRNBeaconManager.h"
 
-
-#define kDefaultConfigurationFileName   @"BeaconsList.plist"
-
-
 @interface YRNBeaconManager () <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) NSString *configurationFileName;
 @property (nonatomic, assign, getter = isInsideBeaconRegion) BOOL insideBeaconRegion;
 
 @end
 
-
 @implementation YRNBeaconManager
 
 #pragma mark - Initialization
-
-- (id)initWithConfiguration:(NSString *)fileName
-{
-    self = [super init];
-    
-    if(self)
-    {
-        [self setConfigurationFileName:fileName];
-        [self setInsideBeaconRegion:NO];
-    }
-    
-    return self;
-}
-
-- (id)init
-{
-    return [self initWithConfiguration:kDefaultConfigurationFileName];
-}
 
 - (void)initLocationServices
 {
@@ -67,7 +43,6 @@
         }
     }
 }
-
 
 #pragma mark - Registering beacon regions
 
@@ -97,88 +72,23 @@
     [[self locationManager] stopMonitoringForRegion:region];
 }
 
-- (NSArray *)beaconRegionsFromConfigurationFile
+- (void)registerBeaconRegions:(NSArray *)beaconRegions
 {
-    NSMutableArray *beaconRegions = [NSMutableArray array];
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:[self configurationFileName]
-                                                         ofType:@"plist"];
-    if(filePath)
+    for (CLBeaconRegion *region in beaconRegions)
     {
-        NSArray *regionArray = [NSArray arrayWithContentsOfFile:filePath];
-        
-        for (NSDictionary *regionDictionary in regionArray)
-        {
-            NSString *UUIDString = regionDictionary[@"proximityUUID"];
-            NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:UUIDString];
-            NSString *identifier = regionDictionary[@"identifier"];
-            NSNumber *majorNumber = regionDictionary[@"major"];
-            CLBeaconMajorValue major = [majorNumber unsignedIntegerValue];
-            NSNumber *minorNumber = regionDictionary[@"minor"];
-            CLBeaconMajorValue minor = [minorNumber unsignedIntegerValue];
-            
-            id plistNotifiyOnDisplay = regionDictionary[@"notifyEntryStateOnDisplay"];
-            BOOL notifiyOnDisplay = plistNotifiyOnDisplay ? [plistNotifiyOnDisplay boolValue] : NO;
-            id plistNotifiyOnEntry = regionDictionary[@"notifyOnEntry"];
-            BOOL notifiyOnEntry = plistNotifiyOnEntry ? [plistNotifiyOnEntry boolValue] : YES;
-            id plistNotifiyOnExit = regionDictionary[@"notifyOnExit"];
-            BOOL notifiyOnExit = plistNotifiyOnExit ? [plistNotifiyOnExit boolValue] : YES;
-            
-            CLBeaconRegion *newRegion;
-            
-            if(majorNumber)
-            {
-                if(minorNumber)
-                {
-                    newRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID
-                                                                        major:major
-                                                                        minor:minor
-                                                                   identifier:identifier];
-                }
-                else
-                {
-                    newRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID
-                                                                        major:major
-                                                                   identifier:identifier];
-                }
-            }
-            else
-            {
-                newRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID
-                                                               identifier:identifier];
-            }
-            
-            [newRegion setNotifyEntryStateOnDisplay:notifiyOnDisplay];
-            [newRegion setNotifyOnEntry:notifiyOnEntry];
-            [newRegion setNotifyOnExit:notifiyOnExit];
-            
-            [beaconRegions addObject:newRegion];
+        if ([region isKindOfClass:[CLBeaconRegion class]]) {
+            [self registerBeaconRegion:region];
         }
     }
-    else
-    {
-        // no configuration file
-    }
-    
-    return beaconRegions;
 }
 
-- (void)registerBeaconRegionsFromConfigurationFile
-{
-    NSArray *beaconRegions = [self beaconRegionsFromConfigurationFile];
-    
+- (void)unregisterBeaconRegions:(NSArray *)beaconRegions
+{    
     for (CLBeaconRegion *region in beaconRegions)
     {
-        [self registerBeaconRegion:region];
-    }
-}
-
-- (void)unregisterBeaconRegionsFromConfigurationFile
-{
-    NSArray *beaconRegions = [self beaconRegionsFromConfigurationFile];
-    
-    for (CLBeaconRegion *region in beaconRegions)
-    {
-        [self unregisterBeaconRegion:region];
+        if ([region isKindOfClass:[CLBeaconRegion class]]) {
+            [self unregisterBeaconRegion:region];
+        }
     }
 }
 
@@ -205,8 +115,7 @@
             case CLRegionStateInside:
                 if(![self isInsideBeaconRegion])
                 {
-                    if([self delegate] &&
-                       [[self delegate] respondsToSelector:@selector(beaconManager:didEnterRegion:)])
+                    if([[self delegate] respondsToSelector:@selector(beaconManager:didEnterRegion:)])
                     {
                         [[self delegate] beaconManager:self
                                         didEnterRegion:beaconRegion];
@@ -220,8 +129,7 @@
             case CLRegionStateOutside:
                 if([self isInsideBeaconRegion])
                 {
-                    if([self delegate] &&
-                       [[self delegate] respondsToSelector:@selector(beaconManager:didExitRegion:)])
+                    if([[self delegate] respondsToSelector:@selector(beaconManager:didExitRegion:)])
                     {
                         [[self delegate] beaconManager:self
                                          didExitRegion:beaconRegion];
@@ -245,8 +153,7 @@
 {
     if([beacons count] > 0)
     {
-        if([self delegate] &&
-           [[self delegate] respondsToSelector:@selector(beaconManager:didRangeBeacons:inRegion:)])
+        if([[self delegate] respondsToSelector:@selector(beaconManager:didRangeBeacons:inRegion:)])
         {
             [[self delegate] beaconManager:self
                            didRangeBeacons:beacons
