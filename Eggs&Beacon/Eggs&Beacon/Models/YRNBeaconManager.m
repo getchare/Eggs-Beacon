@@ -17,6 +17,8 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
 
 @property (nonatomic, strong) CBCentralManager *bluetoothCentralManager;
 
+@property (nonatomic, strong) NSArray *monitoredBeacons;
+
 @end
 
 @implementation YRNBeaconManager
@@ -194,13 +196,34 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
 {
     if([beacons count] > 0)
     {
-        if([[self delegate] respondsToSelector:@selector(beaconManager:didRangeBeacons:inRegion:)])
+        if([[self delegate] respondsToSelector:@selector(beaconManager:didRangeBeacons:inRegion:)] && ![self monitoredBeaconsAreEqualToBeacons:beacons])
         {
             [[self delegate] beaconManager:self
                            didRangeBeacons:beacons
                                   inRegion:region];
         }
+        [self setMonitoredBeacons:[beacons copy]];
     }
+}
+
+- (BOOL)monitoredBeaconsAreEqualToBeacons:(NSArray *)newlyRangedBeacons
+{
+    __block BOOL result = NO;
+    if ([[self monitoredBeacons] count] == [newlyRangedBeacons count]) {
+        result = YES;
+        [[self monitoredBeacons] enumerateObjectsUsingBlock:^(CLBeacon *monitoredBeacon, NSUInteger idx, BOOL *stop) {
+            CLBeacon *newlyRangedBeacon = newlyRangedBeacons[idx];
+            if (![[newlyRangedBeacon proximityUUID] isEqual:[monitoredBeacon proximityUUID]] ||
+                ![[newlyRangedBeacon major] isEqual:[monitoredBeacon major]] ||
+                ![[newlyRangedBeacon minor] isEqual:[monitoredBeacon minor]] ||
+                [newlyRangedBeacon proximity] != [monitoredBeacon proximity])
+            {
+                result = NO;
+                *stop = YES;
+            }
+        }];
+    }
+    return result;
 }
 
 #pragma mark - Bluetooth
