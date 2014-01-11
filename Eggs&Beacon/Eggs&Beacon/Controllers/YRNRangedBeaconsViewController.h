@@ -10,4 +10,6 @@
 
 @interface YRNRangedBeaconsViewController : UITableViewController
 
+- (void)eventInfoForNotification:(UILocalNotification *)notification;
+
 @end

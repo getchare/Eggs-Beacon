@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041DF0451881962500B8CA3F /* veespo_logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 041DF0441881962500B8CA3F /* veespo_logo.jpg */; };
+		0423821C187F22F100C6F7B9 /* YRNEventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423821B187F22F100C6F7B9 /* YRNEventDetailViewController.m */; };
 		0494208C1854AC5300D2EC77 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0494208B1854AC5300D2EC77 /* Foundation.framework */; };
 		0494208E1854AC5300D2EC77 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0494208D1854AC5300D2EC77 /* CoreGraphics.framework */; };
 		049420901854AC5300D2EC77 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0494208F1854AC5300D2EC77 /* UIKit.framework */; };
@@ -40,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		041DF0441881962500B8CA3F /* veespo_logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = veespo_logo.jpg; sourceTree = "<group>"; };
+		0423821A187F22F100C6F7B9 /* YRNEventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNEventDetailViewController.h; path = Controllers/YRNEventDetailViewController.h; sourceTree = "<group>"; };
+		0423821B187F22F100C6F7B9 /* YRNEventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRNEventDetailViewController.m; path = Controllers/YRNEventDetailViewController.m; sourceTree = "<group>"; };
 		049420881854AC5300D2EC77 /* Eggs&Beacon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Eggs&Beacon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0494208B1854AC5300D2EC77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0494208D1854AC5300D2EC77 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -97,6 +102,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		041DF0431881962500B8CA3F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				041DF0441881962500B8CA3F /* veespo_logo.jpg */,
+			);
+			name = Images;
+			path = Resources/Images;
+			sourceTree = "<group>";
+		};
 		0494207F1854AC5300D2EC77 = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +153,7 @@
 				049420C51854CF1600D2EC77 /* Models */,
 				049420C61854CF1D00D2EC77 /* Views */,
 				049420BA1854C81E00D2EC77 /* Controllers */,
+				041DF0431881962500B8CA3F /* Images */,
 			);
 			path = "Eggs&Beacon";
 			sourceTree = "<group>";
@@ -180,6 +195,8 @@
 				04BA0CAA186DC9C80030D20C /* YRNBeaconDetailViewController.m */,
 				4D98E7DC187074140034C6EB /* YRNRangedBeaconsViewController.h */,
 				4D98E7DD187074150034C6EB /* YRNRangedBeaconsViewController.m */,
+				0423821A187F22F100C6F7B9 /* YRNEventDetailViewController.h */,
+				0423821B187F22F100C6F7B9 /* YRNEventDetailViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -291,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				049420CD1854F87300D2EC77 /* BeaconRegions.plist in Resources */,
+				041DF0451881962500B8CA3F /* veespo_logo.jpg in Resources */,
 				049420961854AC5300D2EC77 /* InfoPlist.strings in Resources */,
 				0494209E1854AC5300D2EC77 /* Images.xcassets in Resources */,
 				04BA0CAD186DCAE00030D20C /* iPhone.storyboard in Resources */,
@@ -349,6 +367,7 @@
 				049420BF1854CDD900D2EC77 /* YRNAppDelegate.m in Sources */,
 				049420C91854DE1900D2EC77 /* YRNBeaconManager.m in Sources */,
 				04BA0CAB186DC9C80030D20C /* YRNBeaconDetailViewController.m in Sources */,
+				0423821C187F22F100C6F7B9 /* YRNEventDetailViewController.m in Sources */,
 				4D834C7818708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.m in Sources */,
 				4D98E7DE187074150034C6EB /* YRNRangedBeaconsViewController.m in Sources */,
 			);

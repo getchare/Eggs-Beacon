@@ -8,10 +8,22 @@
 
 #import "YRNAppDelegate.h"
 
+#import "YRNRangedBeaconsViewController.h"
+
 @implementation YRNAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Handle launching from a notification
+    UILocalNotification *locationNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    if (locationNotification)
+    {
+        // Set icon badge number to zero
+        application.applicationIconBadgeNumber = 0;
+        
+        [self application:application didReceiveLocalNotification:locationNotification];
+    }
+    
     return YES;
 }
 
@@ -40,6 +52,15 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    // gfgf
+    
+    YRNRangedBeaconsViewController *rangedViewController = [[(UINavigationController *)[[self window] rootViewController] viewControllers] firstObject];
+    
+    [rangedViewController eventInfoForNotification:notification];
 }
 
 @end
