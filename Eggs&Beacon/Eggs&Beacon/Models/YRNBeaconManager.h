@@ -63,14 +63,20 @@
  *  Starts monitoring a beacon region.
  *
  *  @param region A CLBeaconRegion object. This parameter must not be nil.
+ *  @param error  If an error occurs, upon return contains an NSError object that describes the problem.
+ *
+ *  @return YES if the beacon region is registered, NO otherwise.
  */
-- (void)registerBeaconRegion:(CLBeaconRegion *)region;
+- (BOOL)registerBeaconRegion:(CLBeaconRegion *)region error:(NSError * __autoreleasing *)error;
 
 /**
  *  Starts monitoring a list of beacon regions.
  *
  *  @param regions An array of CLBeaconRegion objects.
+ *  @param error  If an error occurs, upon return contains an NSError object that describes the problem.
+ *
+ *  @return YES if the beacon regions are registered, NO otherwise.
  */
-- (void)registerBeaconRegions:(NSArray *)regions;
+- (BOOL)registerBeaconRegions:(NSArray *)regions error:(NSError * __autoreleasing *)error;
 
 @end
