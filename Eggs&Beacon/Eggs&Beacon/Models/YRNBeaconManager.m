@@ -10,16 +10,30 @@
 
 static NSUInteger const YRNMaxMonitoredRegions = 20;
 
-@interface YRNBeaconManager () <CLLocationManagerDelegate>
+@interface YRNBeaconManager () <CLLocationManagerDelegate, CBCentralManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, assign, getter = isInsideBeaconRegion) BOOL insideBeaconRegion;
+
+@property (nonatomic, strong) CBCentralManager *bluetoothCentralManager;
 
 @end
 
 @implementation YRNBeaconManager
 
 #pragma mark - Initialization
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        [self setBluetoothCentralManager:[[CBCentralManager alloc] initWithDelegate:self
+                                                                              queue:nil
+                                                                            options:@{CBCentralManagerOptionShowPowerAlertKey: @YES}]];
+    }
+    return self;
+}
 
 - (void)initLocationServicesError:(NSError * __autoreleasing *)error
 {
@@ -72,7 +86,7 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
 {
     [self initLocationServicesError:error];
     
-    if (error) {
+    if (*error) {
         return NO;
     }
     
@@ -186,6 +200,21 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
                            didRangeBeacons:beacons
                                   inRegion:region];
         }
+    }
+}
+
+#pragma mark - Bluetooth
+
+- (CBCentralManagerState)bluetoothState
+{
+    return [[self bluetoothCentralManager] state];
+}
+
+- (void)centralManagerDidUpdateState:(CBCentralManager *)central
+{
+    if ([[self delegate] respondsToSelector:@selector(beaconManager:didUpdateBluetoothState:)]) {
+        [[self delegate] beaconManager:self
+               didUpdateBluetoothState:[[self bluetoothCentralManager] state]];
     }
 }
 

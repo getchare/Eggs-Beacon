@@ -46,6 +46,14 @@
  */
 - (void)beaconManager:(YRNBeaconManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region;
 
+/**
+ *  Tells the delegate that the bluetooth state did change.
+ *
+ *  @param manager The beacon manager object reporting the event.
+ *  @param state   The bluetooth state
+ */
+- (void)beaconManager:(YRNBeaconManager *)manager didUpdateBluetoothState:(CBCentralManagerState)state;
+
 @end
 
 /**
@@ -79,5 +87,12 @@
  *  @return YES if the beacon regions are registered, NO otherwise.
  */
 - (BOOL)registerBeaconRegions:(NSArray *)regions error:(NSError * __autoreleasing *)error;
+
+/**
+ *  Returns the current state of bluetooth on the device.
+ *
+ *  @return The current state of bluetooth on the device.
+ */
+- (CBCentralManagerState)bluetoothState;
 
 @end
