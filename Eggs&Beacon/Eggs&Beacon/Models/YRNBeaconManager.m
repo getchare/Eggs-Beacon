@@ -125,7 +125,7 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
         {
             if ([region isKindOfClass:[CLBeaconRegion class]]) {
                 [self registerBeaconRegion:region error:error];
-                if (error) {
+                if (*error) {
                     break;
                 }
             }
