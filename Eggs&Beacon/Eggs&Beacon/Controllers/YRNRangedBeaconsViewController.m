@@ -158,4 +158,7 @@ typedef enum {
     
 }
 
+- (IBAction)closeEventModal:(UIStoryboardSegue *)segue
+{}
+
 @end

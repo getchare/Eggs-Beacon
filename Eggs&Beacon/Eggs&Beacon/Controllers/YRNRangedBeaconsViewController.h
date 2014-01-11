@@ -11,5 +11,5 @@
 @interface YRNRangedBeaconsViewController : UITableViewController
 
 - (void)eventInfoForNotification:(UILocalNotification *)notification;
-
+- (IBAction)closeEventModal:(UIStoryboardSegue *)segue;
 @end

@@ -53,7 +53,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="DM4-7F-VhQ"/>
+                    <navigationItem key="navigationItem" id="DM4-7F-VhQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="jiH-Xu-lm6">
+                            <connections>
+                                <segue destination="YSo-lL-4H5" kind="unwind" unwindAction="closeEventModal:" id="rtJ-dR-PDU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="eventImageView" destination="oIo-Sg-0gx" id="TKw-CA-fGU"/>
                         <outlet property="eventTextView" destination="wdt-MA-pir" id="7X2-42-d70"/>
@@ -61,8 +67,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DFA-pb-xf2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="YSo-lL-4H5" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1985" y="541"/>
+            <point key="canvasLocation" x="2003" y="567"/>
         </scene>
         <!--Ranged Beacons View Controller-->
         <scene sceneID="MSt-Ws-Csc">
