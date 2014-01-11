@@ -27,7 +27,12 @@
     [super viewDidLoad];
     NSString *configurationFilePath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions"
                                                                       ofType:@"plist"];
-    [[self beaconManager] registerBeaconRegions:[CLBeaconRegion beaconRegionsWithContentsOfFile:configurationFilePath]];
+    NSError *error;
+    [[self beaconManager] registerBeaconRegions:[CLBeaconRegion beaconRegionsWithContentsOfFile:configurationFilePath] error:&error];
+    if (error)
+    {
+        NSLog(@"Error registering Beacon regions %@", error);
+    }
 }
 
 #pragma mark - Beacon manager
