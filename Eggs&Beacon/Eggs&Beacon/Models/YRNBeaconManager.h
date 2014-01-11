@@ -6,8 +6,9 @@
 //  Copyright (c) 2013 Yron Lab. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
+@import CoreLocation;
+@import CoreBluetooth;
+
 #import "CLBeaconRegion+YRNBeaconManager.h"
 
 @class YRNBeaconManager;
