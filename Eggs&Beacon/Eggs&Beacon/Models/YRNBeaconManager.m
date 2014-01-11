@@ -8,6 +8,8 @@
 
 #import "YRNBeaconManager.h"
 
+static NSUInteger const YRNMaxMonitoredRegions = 20;
+
 @interface YRNBeaconManager () <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -19,22 +21,42 @@
 
 #pragma mark - Initialization
 
-- (void)initLocationServices
+- (void)initLocationServicesError:(NSError * __autoreleasing *)error
 {
     if(![self locationManager])
     {
+        NSDictionary *userInfo;
+        NSInteger errorCode;
         if(![CLLocationManager locationServicesEnabled])
         {
             //You need to enable Location Services
+            userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Location services are disabled", nil),
+                         NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Turn on the Location Services switch in General settings", nil)};
+            errorCode = kCLErrorDenied;
         }
         else if(![CLLocationManager isRangingAvailable])
         {
             // the device doesn't support ranging of Bluetooth beacons
+            userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"The device doesn't support ranging of Bluetooth beacons.", nil)};
+            errorCode = kCLErrorRangingUnavailable;
         }
-        else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied ||
-                [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted)
+        else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied)
         {
             //You need to authorize Location Services for the APP
+            userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Location services are disabled", nil),
+                         NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Turn on the Location Services for the app", nil)};
+            errorCode = kCLErrorDenied;
+        }
+        else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted)
+        {
+            userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"The app is not authorized to use Location Services", nil)};
+            errorCode = kCLErrorDenied;
+        }
+        
+        if (userInfo) {
+            *error = [NSError errorWithDomain:kCLErrorDomain
+                                         code:errorCode
+                                     userInfo:userInfo];
         }
         else
         {
@@ -46,21 +68,25 @@
 
 #pragma mark - Registering beacon regions
 
-- (void)registerBeaconRegion:(CLBeaconRegion *)region
+- (BOOL)registerBeaconRegion:(CLBeaconRegion *)region error:(NSError * __autoreleasing *)error
 {
-    [self initLocationServices];
+    [self initLocationServicesError:error];
     
-    NSInteger monitoredRegionsCount = [[[self locationManager] monitoredRegions] count];
-    if(monitoredRegionsCount >= 20)
+    if (error) {
+        return NO;
+    }
+    
+    if([[[self locationManager] monitoredRegions] count] >= YRNMaxMonitoredRegions)
     {
         // maximum number of monitored regions reached
+        *error = [[self class] reachedMaxMonitoredRegionsError];
+        return NO;
     }
-    else
-    {
-        // start monitoring new region
-        [[self locationManager] startMonitoringForRegion:region];
-        [[self locationManager] requestStateForRegion:region];
-    }
+    
+    // start monitoring new region
+    [[self locationManager] startMonitoringForRegion:region];
+    [[self locationManager] requestStateForRegion:region];
+    return YES;
 }
 
 - (void)unregisterBeaconRegion:(CLBeaconRegion *)region
@@ -72,13 +98,25 @@
     [[self locationManager] stopMonitoringForRegion:region];
 }
 
-- (void)registerBeaconRegions:(NSArray *)beaconRegions
+- (BOOL)registerBeaconRegions:(NSArray *)beaconRegions error:(NSError * __autoreleasing *)error
 {
-    for (CLBeaconRegion *region in beaconRegions)
+    if ([[[self locationManager] monitoredRegions] count] + [beaconRegions count] >= YRNMaxMonitoredRegions) {
+        // maximum number of monitored regions reached
+        *error = [[self class] reachedMaxMonitoredRegionsError];
+        return NO;
+    }
+    else
     {
-        if ([region isKindOfClass:[CLBeaconRegion class]]) {
-            [self registerBeaconRegion:region];
+        for (CLBeaconRegion *region in beaconRegions)
+        {
+            if ([region isKindOfClass:[CLBeaconRegion class]]) {
+                [self registerBeaconRegion:region error:error];
+                if (error) {
+                    break;
+                }
+            }
         }
+        return error == nil;
     }
 }
 
@@ -91,7 +129,6 @@
         }
     }
 }
-
 
 #pragma mark - CoreLocation delegate methods
 
@@ -160,6 +197,17 @@
                                   inRegion:region];
         }
     }
+}
+
+#pragma mark - Errors
+
++ (NSError *)reachedMaxMonitoredRegionsError
+{
+    NSDictionary *userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Could not register region.", nil),
+                               NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The maximum number of monitored regions was reached", nil)};
+    return [NSError errorWithDomain:kCLErrorDomain
+                               code:kCLErrorRegionMonitoringFailure
+                           userInfo:userInfo];
 }
 
 @end
