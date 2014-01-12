@@ -262,11 +262,17 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
             notificationText = @"Benvenuto a Veespo!";
             break;
             
-        case MeetAlessio:
-            notificationText = @"Ciao Alessio!";
-            
         case GoodBye:
             notificationText = @"Ciao ciao!";
+            break;
+            
+        case MeetAlessio:
+            notificationText = @"Ciao Alessio!";
+            break;
+            
+        case Appsterdam:
+            notificationText = @"Vuoi conoscere Appsterdam?";
+            break;
             
         default:
             notificationText = @"";
