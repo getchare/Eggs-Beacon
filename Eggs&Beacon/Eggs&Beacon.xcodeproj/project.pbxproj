@@ -27,6 +27,7 @@
 		04BA0CAB186DC9C80030D20C /* YRNBeaconDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BA0CAA186DC9C80030D20C /* YRNBeaconDetailViewController.m */; };
 		04BA0CAD186DCAE00030D20C /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04BA0CAC186DCAE00030D20C /* iPhone.storyboard */; };
 		4B2CE34DEA764C57801EAF54 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB85FB26F57342ECADE3B60F /* libPods.a */; };
+		4D1D68141882F00400BAB8E8 /* YRNBeaconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1D68131882F00400BAB8E8 /* YRNBeaconCell.m */; };
 		4D834C7818708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D834C7718708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.m */; };
 		4D98E7DE187074150034C6EB /* YRNRangedBeaconsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D98E7DD187074150034C6EB /* YRNRangedBeaconsViewController.m */; };
 /* End PBXBuildFile section */
@@ -68,6 +69,8 @@
 		04BA0CA9186DC9C80030D20C /* YRNBeaconDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNBeaconDetailViewController.h; path = Controllers/YRNBeaconDetailViewController.h; sourceTree = "<group>"; };
 		04BA0CAA186DC9C80030D20C /* YRNBeaconDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRNBeaconDetailViewController.m; path = Controllers/YRNBeaconDetailViewController.m; sourceTree = "<group>"; };
 		04BA0CAC186DCAE00030D20C /* iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = iPhone.storyboard; path = Views/iPhone.storyboard; sourceTree = "<group>"; };
+		4D1D68121882F00400BAB8E8 /* YRNBeaconCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNBeaconCell.h; path = Views/YRNBeaconCell.h; sourceTree = "<group>"; };
+		4D1D68131882F00400BAB8E8 /* YRNBeaconCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRNBeaconCell.m; path = Views/YRNBeaconCell.m; sourceTree = "<group>"; };
 		4D834C7618708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CLBeaconRegion+YRNBeaconManager.h"; path = "Models/CLBeaconRegion+YRNBeaconManager.h"; sourceTree = "<group>"; };
 		4D834C7718708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CLBeaconRegion+YRNBeaconManager.m"; path = "Models/CLBeaconRegion+YRNBeaconManager.m"; sourceTree = "<group>"; };
 		4D98E7DC187074140034C6EB /* YRNRangedBeaconsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNRangedBeaconsViewController.h; path = Controllers/YRNRangedBeaconsViewController.h; sourceTree = "<group>"; };
@@ -225,6 +228,8 @@
 			isa = PBXGroup;
 			children = (
 				04BA0CAC186DCAE00030D20C /* iPhone.storyboard */,
+				4D1D68121882F00400BAB8E8 /* YRNBeaconCell.h */,
+				4D1D68131882F00400BAB8E8 /* YRNBeaconCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -366,6 +371,7 @@
 				049420C41854CDF500D2EC77 /* main.m in Sources */,
 				049420BF1854CDD900D2EC77 /* YRNAppDelegate.m in Sources */,
 				049420C91854DE1900D2EC77 /* YRNBeaconManager.m in Sources */,
+				4D1D68141882F00400BAB8E8 /* YRNBeaconCell.m in Sources */,
 				04BA0CAB186DC9C80030D20C /* YRNBeaconDetailViewController.m in Sources */,
 				0423821C187F22F100C6F7B9 /* YRNEventDetailViewController.m in Sources */,
 				4D834C7818708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.m in Sources */,
