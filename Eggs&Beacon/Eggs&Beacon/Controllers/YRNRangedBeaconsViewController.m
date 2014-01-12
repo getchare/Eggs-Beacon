@@ -120,20 +120,22 @@ typedef enum {
     // estimote region
     if([[[region proximityUUID] UUIDString] isEqualToString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"])
     {
+        // prepare notification
+        NSDictionary *notificationInfo = @{@"EventType": [NSNumber numberWithInt:Welcome],
+                                           @"UUID": [[region proximityUUID] UUIDString]};
+        UILocalNotification *rangingNotification = [[UILocalNotification alloc] init];
+        [rangingNotification setUserInfo:notificationInfo];
+        [rangingNotification setAlertBody:@"Welcome to Veespo!"];
+        [rangingNotification setAlertAction:@"Cool"];
+        [rangingNotification setSoundName:UILocalNotificationDefaultSoundName];
+        
         if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
         {
             // app is active, open modal, no notifications
+            [self eventInfoForNotification:rangingNotification];
         }
         else
         {
-            NSDictionary *notificationInfo = @{@"EventType": [NSNumber numberWithInt:Welcome],
-                                               @"UUID": [[region proximityUUID] UUIDString]};
-            UILocalNotification *rangingNotification = [[UILocalNotification alloc] init];
-            [rangingNotification setUserInfo:notificationInfo];
-            [rangingNotification setAlertBody:@"Welcome to Veespo!"];
-            [rangingNotification setAlertAction:@"Cool"];
-            [rangingNotification setSoundName:UILocalNotificationDefaultSoundName];
-            
             [[UIApplication sharedApplication] presentLocalNotificationNow:rangingNotification];
         }
     }
@@ -153,8 +155,6 @@ typedef enum {
     [[self tableView] reloadData];
     
     // here local notification
-    // how can we know if we've just enetered (distance far?) or we are moving outstide?
-
     
 }
 
