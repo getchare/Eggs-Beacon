@@ -8,8 +8,8 @@
 
 #import "YRNRangedBeaconsViewController.h"
 #import "YRNBeaconManager.h"
-#import "YRNBeaconDetailViewController.h"
 #import "YRNEventDetailViewController.h"
+#import "YRNBeaconCell.h"
 
 // Blue beacon
 static NSUInteger const YRNBlueBeaconMajor = 56595;
@@ -46,6 +46,9 @@ typedef enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIView *backgroundView = [[UIView alloc] init];
+    [backgroundView setBackgroundColor:[[self class] backgroundColor]];
+    [[self tableView] setBackgroundView:backgroundView];
     NSString *configurationFilePath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions"
                                                                       ofType:@"plist"];
     NSError *error;
@@ -77,11 +80,22 @@ typedef enum {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"BeaconCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
-                                                            forIndexPath:indexPath];
+    YRNBeaconCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
+                                                          forIndexPath:indexPath];
     CLBeacon *beacon = [self beacons][indexPath.row];
-    cell.textLabel.text = [beacon description];
+    [[cell UUIDLabel] setText:[[beacon proximityUUID] UUIDString]];
+    [[cell majorLabel] setText:[[beacon major] description]];
+    [[cell minorLabel] setText:[[beacon minor] description]];
+    [[cell proximityView] setProximity:[beacon proximity]];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView
+  willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIColor *backgroundColor = indexPath.row % 2 != 0 ? [UIColor whiteColor] : [UIColor clearColor];
+    [cell setBackgroundColor:backgroundColor];
 }
 
 #pragma mark - Navigation
@@ -89,16 +103,7 @@ typedef enum {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue
                  sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"BeaconDetail"]) {
-        if ([sender isKindOfClass:[UITableViewCell class]]) {
-            UITableViewCell *cell = sender;
-            NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
-            CLBeacon *beacon = [self beacons][[indexPath row]];
-            YRNBeaconDetailViewController *beaconDetailViewController = [segue destinationViewController];
-            [beaconDetailViewController setBeacon:beacon];
-        }
-    }
-    else if ([[segue identifier] isEqualToString:@"EventDetail"]) {
+    if ([[segue identifier] isEqualToString:@"EventDetail"]) {
         UINavigationController *navigationController = segue.destinationViewController;
 		YRNEventDetailViewController *eventViewController = [[navigationController viewControllers] firstObject];
         NSDictionary *notificationInfo = [[self currentNotification] userInfo];
@@ -282,5 +287,11 @@ typedef enum {
     }
 }
 
+#pragma mark - Colors
+
++ (UIColor *)backgroundColor
+{
+    return [[UIColor yellowColor] colorWithAlphaComponent:0.1f];
+}
 
 @end
