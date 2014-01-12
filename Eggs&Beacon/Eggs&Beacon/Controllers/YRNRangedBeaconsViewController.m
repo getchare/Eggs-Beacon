@@ -13,15 +13,16 @@
 #import "CLBeacon+YRNBeaconManager.h"
 #import "UIColor+YRNBeacon.h"
 
-@interface YRNRangedBeaconsViewController () <YRNBeaconManagerDelegate>
+typedef NS_ENUM(NSUInteger, YRNEventType)
+{
+    YRNEventTypeNone = 0,
+    YRNEventTypeWelcome,
+    YRNEventTypeMeetAlessio,
+    YRNEventTypeAppsterdam,
+    YRNEventTypeGoodBye,
+};
 
-typedef enum {
-    None = 0,
-    Welcome,
-	MeetAlessio,
-    Appsterdam,
-	GoodBye
-} EventType;
+@interface YRNRangedBeaconsViewController () <YRNBeaconManagerDelegate>
 
 @property (nonatomic, strong) YRNBeaconManager *beaconManager;
 @property (nonatomic, strong) NSArray *beacons;
@@ -36,17 +37,8 @@ typedef enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIView *backgroundView = [[UIView alloc] init];
-    [backgroundView setBackgroundColor:[[self class] backgroundColor]];
-    [[self tableView] setBackgroundView:backgroundView];
-    NSString *configurationFilePath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions"
-                                                                      ofType:@"plist"];
-    NSError *error;
-    [[self beaconManager] registerBeaconRegions:[CLBeaconRegion beaconRegionsWithContentsOfFile:configurationFilePath] error:&error];
-    if (error)
-    {
-        NSLog(@"Error registering Beacon regions %@", error);
-    }
+    [self customizeTableView];
+    [self registerBeaconRegions];
 }
 
 #pragma mark - Beacon manager
@@ -60,7 +52,26 @@ typedef enum {
     return _beaconManager;
 }
 
+- (void)registerBeaconRegions
+{
+    NSString *configurationFilePath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions"
+                                                                      ofType:@"plist"];
+    NSError *error;
+    [[self beaconManager] registerBeaconRegions:[CLBeaconRegion beaconRegionsWithContentsOfFile:configurationFilePath] error:&error];
+    if (error)
+    {
+        NSLog(@"Error registering Beacon regions %@", error);
+    }
+}
+
 #pragma mark - Table view data source
+
+- (void)customizeTableView
+{
+    UIView *backgroundView = [[UIView alloc] init];
+    [backgroundView setBackgroundColor:[[self class] backgroundColor]];
+    [[self tableView] setBackgroundView:backgroundView];
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -101,32 +112,31 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         
         if(notificationInfo)
         {
-            EventType eventType = [(NSNumber *)[notificationInfo objectForKey:@"EventType"] intValue];
+            YRNEventType eventType = [notificationInfo[@"EventType"] integerValue];
             switch (eventType)
             {
-                case Welcome:
+                case YRNEventTypeWelcome:
                     [eventViewController setImageName:@"veespo_logo.jpg"];
                     [eventViewController setEventName:@"Benvenuto!"];
                     [eventViewController setEventText:@"Stiamo creando uno strumento per dar voce a tutti che faciliti l’espressione e la comunicazione delle proprie idee e opinioni. Siamo lieti di ospitarvi qui per questo Talk lab."];
                     break;
                 
-                case GoodBye:
+                case YRNEventTypeGoodBye:
                     [eventViewController setImageName:@"veespo_logo"];
                     [eventViewController setEventName:@"Bye bye"];
                     [eventViewController setEventText:@"Devo ancora trovare un'immagine adatta :P"];
                     break;
                    
-                case MeetAlessio:
+                case YRNEventTypeMeetAlessio:
                     [eventViewController setImageName:@"pelo.jpg"];
                     [eventViewController setEventName:@"Conosci New York?"];
                     [eventViewController setEventText:@"Ciao!! Sono Alessio Roberto. Chiedimi informazioni su Veespo, te ne parlerò per ore... Ah, lo sapevi che sono stato recentemente a New York?"];
                     break;
                     
-                case Appsterdam:
+                case YRNEventTypeAppsterdam:
                     [eventViewController setImageName:@"appsterdam"];
                     [eventViewController setEventName:@"Appsterdam Milan"];
                     [eventViewController setEventText:@"Appsterdam è un'associazione nata da un'idea di Mike Lee, sviluppatore iOS di fama mondiale, che ha deciso di creare in Olanda una rete di professionisti nell'ambito del mondo delle applicazioni - siano esse mobile, web, embedded o desktop. Il gruppo promuove la cultura digitale in maniera completa: tra di noi ci sono soprattutto sviluppatori e designer, ma la nostra comunità include anche esperti di comunicazione, di marketing, di economia o legge; ogni singola idea è valida e può trovare ospitalità in Appsterdam."];
-                    break;
                     break;
                 
                 default:
@@ -148,9 +158,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)beaconManager:(YRNBeaconManager *)manager didEnterRegion:(CLBeaconRegion *)region
 {
     // estimote region
-    if([[[region proximityUUID] UUIDString] isEqualToString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"])
+    if([[[region proximityUUID] UUIDString] isEqualToString:YRNEstimoteUUIDString])
     {
-        [self createNotification:Welcome
+        [self createNotification:YRNEventTypeWelcome
                        forRegion:region];
     }
 }
@@ -158,9 +168,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)beaconManager:(YRNBeaconManager *)manager didExitRegion:(CLBeaconRegion *)region
 {
     // estimote region
-    if([[[region proximityUUID] UUIDString] isEqualToString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"])
+    if([[[region proximityUUID] UUIDString] isEqualToString:YRNEstimoteUUIDString])
     {
-        [self createNotification:GoodBye
+        [self createNotification:YRNEventTypeGoodBye
                        forRegion:region];
     }
 }
@@ -169,7 +179,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
       didRangeBeacons:(NSArray *)beacons
              inRegion:(CLBeaconRegion *)region
 {
-    [self setTitle:[region identifier]];
     [self setBeacons:[beacons copy]];
     [[self tableView] reloadData];
     
@@ -188,7 +197,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 #pragma mark - Local notifications creation
 
-- (void)createNotification:(EventType)notificationType forRegion:(CLBeaconRegion *)region
+- (void)createNotification:(YRNEventType)notificationType forRegion:(CLBeaconRegion *)region
 {
     NSDictionary *notificationInfo = @{@"EventType": [NSNumber numberWithInt:notificationType],
                                        @"UUID": [[region proximityUUID] UUIDString]};
@@ -198,22 +207,22 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)createNotificationForBeacon:(CLBeacon *)beacon
 {
-    EventType rangingEventType = None;
+    YRNEventType rangingEventType = YRNEventTypeNone;
     
     if ([beacon isBlueBeacon])
     {
         NSLog(@"Blue beacon is Immediate!");
-        rangingEventType = MeetAlessio;
+        rangingEventType = YRNEventTypeMeetAlessio;
     }
     else if ([beacon isCyanBeacon])
     {
         NSLog(@"Cyan beacon is Immediate!");
-        rangingEventType = None;
+        rangingEventType = YRNEventTypeNone;
     }
     else if ([beacon isGreenBeacon])
     {
         NSLog(@"Green beacon is Immediate!");
-        rangingEventType = Appsterdam;
+        rangingEventType = YRNEventTypeAppsterdam;
     }
     NSDictionary *notificationInfo = @{@"EventType": [NSNumber numberWithInt:rangingEventType],
                                        @"UUID": [[beacon proximityUUID] UUIDString],
@@ -223,9 +232,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     [self createNotification:rangingEventType withUserInfo:notificationInfo];
 }
 
-- (void)createNotification:(EventType)notificationType withUserInfo:(NSDictionary *)notificationInfo
+- (void)createNotification:(YRNEventType)notificationType withUserInfo:(NSDictionary *)notificationInfo
 {
-    if(notificationType == None)
+    if(notificationType == YRNEventTypeNone)
         return;
     
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
@@ -234,19 +243,19 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSString *notificationText;
     switch (notificationType)
     {
-        case Welcome:
+        case YRNEventTypeWelcome:
             notificationText = @"Benvenuto a Veespo!";
             break;
             
-        case GoodBye:
+        case YRNEventTypeGoodBye:
             notificationText = @"Ciao ciao!";
             break;
             
-        case MeetAlessio:
+        case YRNEventTypeMeetAlessio:
             notificationText = @"Ciao Alessio!";
             break;
             
-        case Appsterdam:
+        case YRNEventTypeAppsterdam:
             notificationText = @"Vuoi conoscere Appsterdam?";
             break;
             
