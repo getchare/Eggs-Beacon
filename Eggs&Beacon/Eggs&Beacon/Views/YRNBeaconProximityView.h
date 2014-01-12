@@ -6,8 +6,34 @@
 //  Copyright (c) 2014 Yron Lab. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface YRNBeaconProximityView : UIView
+
+/**
+ *  The color used to draw the iPhone.
+ *
+ *  @discussion Default is [UIColor greenColor];
+ */
+@property (nonatomic, strong) UIColor *beaconColor UI_APPEARANCE_SELECTOR;
+
+/**
+ *  The color used to draw the iPhone.
+ *
+ *  @discussion Default is [UIColor whiteColor];
+ */
+@property (nonatomic, strong) UIColor *iPhoneColor UI_APPEARANCE_SELECTOR;
+
+/**
+ *  The radar color.
+ *
+ *  @discussion Default is [UIColor blackColor];
+ */
+@property (nonatomic, strong) UIColor *tintColor UI_APPEARANCE_SELECTOR;
+
+/**
+ *  The proximity.
+ */
+@property (nonatomic) CLProximity proximity;
 
 @end
