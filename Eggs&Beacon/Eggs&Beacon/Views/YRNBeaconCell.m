@@ -10,20 +10,13 @@
 
 @implementation YRNBeaconCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (void)prepareForReuse
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    [super prepareForReuse];
+    [[self proximityView] setProximity:CLProximityUnknown];
+    [[self UUIDLabel] setText:nil];
+    [[self majorLabel] setText:nil];
+    [[self minorLabel] setText:nil];
 }
 
 @end
