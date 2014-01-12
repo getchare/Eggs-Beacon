@@ -29,6 +29,7 @@
 		04C339F418833A8B00561B2F /* veespo_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C339F218833A8B00561B2F /* veespo_logo.png */; };
 		04C339F518833A8B00561B2F /* veespo_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C339F318833A8B00561B2F /* veespo_logo@2x.png */; };
 		4B2CE34DEA764C57801EAF54 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB85FB26F57342ECADE3B60F /* libPods.a */; };
+		4D147F6B1883619400D29748 /* bluetooth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D147F6A1883619400D29748 /* bluetooth@2x.png */; };
 		4D1D68141882F00400BAB8E8 /* YRNBeaconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1D68131882F00400BAB8E8 /* YRNBeaconCell.m */; };
 		4D1D68171882F1ED00BAB8E8 /* YRNBeaconProximityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1D68161882F1ED00BAB8E8 /* YRNBeaconProximityView.m */; };
 		4D834C7818708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D834C7718708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.m */; };
@@ -75,6 +76,7 @@
 		04C339F018830DF300561B2F /* appsterdam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appsterdam.png; sourceTree = "<group>"; };
 		04C339F218833A8B00561B2F /* veespo_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = veespo_logo.png; sourceTree = "<group>"; };
 		04C339F318833A8B00561B2F /* veespo_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "veespo_logo@2x.png"; sourceTree = "<group>"; };
+		4D147F6A1883619400D29748 /* bluetooth@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bluetooth@2x.png"; sourceTree = "<group>"; };
 		4D1D68121882F00400BAB8E8 /* YRNBeaconCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNBeaconCell.h; path = Views/YRNBeaconCell.h; sourceTree = "<group>"; };
 		4D1D68131882F00400BAB8E8 /* YRNBeaconCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRNBeaconCell.m; path = Views/YRNBeaconCell.m; sourceTree = "<group>"; };
 		4D1D68151882F1ED00BAB8E8 /* YRNBeaconProximityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNBeaconProximityView.h; path = Views/YRNBeaconProximityView.h; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				04C339F318833A8B00561B2F /* veespo_logo@2x.png */,
 				04C339F018830DF300561B2F /* appsterdam.png */,
 				04C339EE1882FB5A00561B2F /* pelo.jpg */,
+				4D147F6A1883619400D29748 /* bluetooth@2x.png */,
 			);
 			name = Images;
 			path = Resources/Images;
@@ -337,6 +340,7 @@
 				04C339EF1882FB5A00561B2F /* pelo.jpg in Resources */,
 				04C339F418833A8B00561B2F /* veespo_logo.png in Resources */,
 				049420961854AC5300D2EC77 /* InfoPlist.strings in Resources */,
+				4D147F6B1883619400D29748 /* bluetooth@2x.png in Resources */,
 				0494209E1854AC5300D2EC77 /* Images.xcassets in Resources */,
 				04BA0CAD186DCAE00030D20C /* iPhone.storyboard in Resources */,
 			);
