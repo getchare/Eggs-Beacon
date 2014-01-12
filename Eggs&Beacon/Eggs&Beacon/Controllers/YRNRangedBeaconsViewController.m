@@ -111,7 +111,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                     break;
                 
                 case GoodBye:
-                    [eventViewController setImageName:@"veespo_logo.jpg"];
+                    [eventViewController setImageName:@"veespo_logo"];
                     [eventViewController setEventName:@"Bye bye"];
                     [eventViewController setEventText:@"Devo ancora trovare un'immagine adatta :P"];
                     break;
