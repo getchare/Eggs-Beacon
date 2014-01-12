@@ -148,7 +148,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)beaconManager:(YRNBeaconManager *)manager didEnterRegion:(CLBeaconRegion *)region
 {
     // estimote region
-    if([[[region proximityUUID] UUIDString] isEqualToString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"])
+    if([[[region proximityUUID] UUIDString] isEqualToString:YRNEstimoteUUIDString])
     {
         [self createNotification:Welcome
                        forRegion:region];
@@ -158,7 +158,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)beaconManager:(YRNBeaconManager *)manager didExitRegion:(CLBeaconRegion *)region
 {
     // estimote region
-    if([[[region proximityUUID] UUIDString] isEqualToString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"])
+    if([[[region proximityUUID] UUIDString] isEqualToString:YRNEstimoteUUIDString])
     {
         [self createNotification:GoodBye
                        forRegion:region];
