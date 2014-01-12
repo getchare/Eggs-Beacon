@@ -115,6 +115,7 @@ static CGFloat const YRNFarAlpha = 0.2f;
             beaconCenter = CGPointMake(center.x + step * 3.5f, center.y);
             [[[UIColor redColor] colorWithAlphaComponent:0.5f] setFill];
         }
+            break;
         default:
             break;
     }
