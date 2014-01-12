@@ -10,16 +10,32 @@
 
 static NSUInteger const YRNMaxMonitoredRegions = 20;
 
-@interface YRNBeaconManager () <CLLocationManagerDelegate>
+@interface YRNBeaconManager () <CLLocationManagerDelegate, CBCentralManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, assign, getter = isInsideBeaconRegion) BOOL insideBeaconRegion;
+
+@property (nonatomic, strong) CBCentralManager *bluetoothCentralManager;
+
+@property (nonatomic, strong) NSArray *monitoredBeacons;
 
 @end
 
 @implementation YRNBeaconManager
 
 #pragma mark - Initialization
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        [self setBluetoothCentralManager:[[CBCentralManager alloc] initWithDelegate:self
+                                                                              queue:nil
+                                                                            options:@{CBCentralManagerOptionShowPowerAlertKey: @YES}]];
+    }
+    return self;
+}
 
 - (void)initLocationServicesError:(NSError * __autoreleasing *)error
 {
@@ -72,7 +88,7 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
 {
     [self initLocationServicesError:error];
     
-    if (error) {
+    if (*error) {
         return NO;
     }
     
@@ -111,7 +127,7 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
         {
             if ([region isKindOfClass:[CLBeaconRegion class]]) {
                 [self registerBeaconRegion:region error:error];
-                if (error) {
+                if (*error) {
                     break;
                 }
             }
@@ -131,16 +147,6 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
 }
 
 #pragma mark - CoreLocation delegate methods
-
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
-{
-    
-}
-
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
-{
-    
-}
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
@@ -190,12 +196,48 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
 {
     if([beacons count] > 0)
     {
-        if([[self delegate] respondsToSelector:@selector(beaconManager:didRangeBeacons:inRegion:)])
+        if([[self delegate] respondsToSelector:@selector(beaconManager:didRangeBeacons:inRegion:)] && ![self monitoredBeaconsAreEqualToBeacons:beacons])
         {
             [[self delegate] beaconManager:self
                            didRangeBeacons:beacons
                                   inRegion:region];
         }
+        [self setMonitoredBeacons:[beacons copy]];
+    }
+}
+
+- (BOOL)monitoredBeaconsAreEqualToBeacons:(NSArray *)newlyRangedBeacons
+{
+    __block BOOL result = NO;
+    if ([[self monitoredBeacons] count] == [newlyRangedBeacons count]) {
+        result = YES;
+        [[self monitoredBeacons] enumerateObjectsUsingBlock:^(CLBeacon *monitoredBeacon, NSUInteger idx, BOOL *stop) {
+            CLBeacon *newlyRangedBeacon = newlyRangedBeacons[idx];
+            if (![[newlyRangedBeacon proximityUUID] isEqual:[monitoredBeacon proximityUUID]] ||
+                ![[newlyRangedBeacon major] isEqual:[monitoredBeacon major]] ||
+                ![[newlyRangedBeacon minor] isEqual:[monitoredBeacon minor]] ||
+                [newlyRangedBeacon proximity] != [monitoredBeacon proximity])
+            {
+                result = NO;
+                *stop = YES;
+            }
+        }];
+    }
+    return result;
+}
+
+#pragma mark - Bluetooth
+
+- (CBCentralManagerState)bluetoothState
+{
+    return [[self bluetoothCentralManager] state];
+}
+
+- (void)centralManagerDidUpdateState:(CBCentralManager *)central
+{
+    if ([[self delegate] respondsToSelector:@selector(beaconManager:didUpdateBluetoothState:)]) {
+        [[self delegate] beaconManager:self
+               didUpdateBluetoothState:[[self bluetoothCentralManager] state]];
     }
 }
 
