@@ -8,6 +8,15 @@
 
 #import <CoreLocation/CoreLocation.h>
 
+/**
+ *  Compares hard coded available Estimote beacons.
+ */
 @interface CLBeacon (YRNBeaconManager)
+
+- (BOOL)isCyanBeacon;
+
+- (BOOL)isBlueBeacon;
+
+- (BOOL)isGreenBeacon;
 
 @end
