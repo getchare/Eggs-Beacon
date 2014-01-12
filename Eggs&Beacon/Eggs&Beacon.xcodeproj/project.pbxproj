@@ -26,6 +26,8 @@
 		049420CD1854F87300D2EC77 /* BeaconRegions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 049420CC1854F87300D2EC77 /* BeaconRegions.plist */; };
 		04BA0CAB186DC9C80030D20C /* YRNBeaconDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BA0CAA186DC9C80030D20C /* YRNBeaconDetailViewController.m */; };
 		04BA0CAD186DCAE00030D20C /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04BA0CAC186DCAE00030D20C /* iPhone.storyboard */; };
+		04C339EF1882FB5A00561B2F /* pelo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04C339EE1882FB5A00561B2F /* pelo.jpg */; };
+		04C339F118830DF300561B2F /* appsterdam.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C339F018830DF300561B2F /* appsterdam.png */; };
 		4B2CE34DEA764C57801EAF54 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB85FB26F57342ECADE3B60F /* libPods.a */; };
 		4D834C7818708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D834C7718708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.m */; };
 		4D98E7DE187074150034C6EB /* YRNRangedBeaconsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D98E7DD187074150034C6EB /* YRNRangedBeaconsViewController.m */; };
@@ -68,6 +70,8 @@
 		04BA0CA9186DC9C80030D20C /* YRNBeaconDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNBeaconDetailViewController.h; path = Controllers/YRNBeaconDetailViewController.h; sourceTree = "<group>"; };
 		04BA0CAA186DC9C80030D20C /* YRNBeaconDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRNBeaconDetailViewController.m; path = Controllers/YRNBeaconDetailViewController.m; sourceTree = "<group>"; };
 		04BA0CAC186DCAE00030D20C /* iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = iPhone.storyboard; path = Views/iPhone.storyboard; sourceTree = "<group>"; };
+		04C339EE1882FB5A00561B2F /* pelo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pelo.jpg; sourceTree = "<group>"; };
+		04C339F018830DF300561B2F /* appsterdam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appsterdam.png; sourceTree = "<group>"; };
 		4D834C7618708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CLBeaconRegion+YRNBeaconManager.h"; path = "Models/CLBeaconRegion+YRNBeaconManager.h"; sourceTree = "<group>"; };
 		4D834C7718708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CLBeaconRegion+YRNBeaconManager.m"; path = "Models/CLBeaconRegion+YRNBeaconManager.m"; sourceTree = "<group>"; };
 		4D98E7DC187074140034C6EB /* YRNRangedBeaconsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNRangedBeaconsViewController.h; path = Controllers/YRNRangedBeaconsViewController.h; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 		041DF0431881962500B8CA3F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				04C339F018830DF300561B2F /* appsterdam.png */,
+				04C339EE1882FB5A00561B2F /* pelo.jpg */,
 				041DF0441881962500B8CA3F /* veespo_logo.jpg */,
 			);
 			name = Images;
@@ -307,7 +313,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C339F118830DF300561B2F /* appsterdam.png in Resources */,
 				049420CD1854F87300D2EC77 /* BeaconRegions.plist in Resources */,
+				04C339EF1882FB5A00561B2F /* pelo.jpg in Resources */,
 				041DF0451881962500B8CA3F /* veespo_logo.jpg in Resources */,
 				049420961854AC5300D2EC77 /* InfoPlist.strings in Resources */,
 				0494209E1854AC5300D2EC77 /* Images.xcassets in Resources */,

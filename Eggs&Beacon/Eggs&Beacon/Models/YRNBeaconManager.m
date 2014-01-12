@@ -162,7 +162,7 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
     {
         CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
         CLRegionState oldRegionState = [[[self regionsState] objectForKey:[[beaconRegion proximityUUID] UUIDString]] intValue];
-        NSLog(@"Region (%@) state changed. Old: %d\tNew: %d", [[beaconRegion proximityUUID] UUIDString], oldRegionState, state);
+        NSLog(@"Region (%@) state changed. Old: %d\tNew: %d", [beaconRegion identifier], oldRegionState, state);
         switch(state)
         {
             case CLRegionStateInside:
