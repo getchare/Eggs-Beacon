@@ -37,17 +37,8 @@ typedef NS_ENUM(NSUInteger, YRNEventType)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIView *backgroundView = [[UIView alloc] init];
-    [backgroundView setBackgroundColor:[[self class] backgroundColor]];
-    [[self tableView] setBackgroundView:backgroundView];
-    NSString *configurationFilePath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions"
-                                                                      ofType:@"plist"];
-    NSError *error;
-    [[self beaconManager] registerBeaconRegions:[CLBeaconRegion beaconRegionsWithContentsOfFile:configurationFilePath] error:&error];
-    if (error)
-    {
-        NSLog(@"Error registering Beacon regions %@", error);
-    }
+    [self customizeTableView];
+    [self registerBeaconRegions];
 }
 
 #pragma mark - Beacon manager
@@ -61,7 +52,26 @@ typedef NS_ENUM(NSUInteger, YRNEventType)
     return _beaconManager;
 }
 
+- (void)registerBeaconRegions
+{
+    NSString *configurationFilePath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions"
+                                                                      ofType:@"plist"];
+    NSError *error;
+    [[self beaconManager] registerBeaconRegions:[CLBeaconRegion beaconRegionsWithContentsOfFile:configurationFilePath] error:&error];
+    if (error)
+    {
+        NSLog(@"Error registering Beacon regions %@", error);
+    }
+}
+
 #pragma mark - Table view data source
+
+- (void)customizeTableView
+{
+    UIView *backgroundView = [[UIView alloc] init];
+    [backgroundView setBackgroundColor:[[self class] backgroundColor]];
+    [[self tableView] setBackgroundView:backgroundView];
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
