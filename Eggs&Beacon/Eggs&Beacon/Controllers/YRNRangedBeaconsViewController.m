@@ -179,7 +179,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
       didRangeBeacons:(NSArray *)beacons
              inRegion:(CLBeaconRegion *)region
 {
-    [self setTitle:[region identifier]];
     [self setBeacons:[beacons copy]];
     [[self tableView] reloadData];
     
