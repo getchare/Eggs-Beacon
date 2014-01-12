@@ -10,18 +10,8 @@
 #import "YRNBeaconManager.h"
 #import "YRNEventDetailViewController.h"
 #import "YRNBeaconCell.h"
-
-// Blue beacon
-static NSUInteger const YRNBlueBeaconMajor = 56595;
-static NSUInteger const YRNBlueBeaconMinor = 24731;
-
-// Cyan beacon
-static NSUInteger const YRNCyanBeaconMajor = 5848;
-static NSUInteger const YRNCyanBeaconMinor = 57228;
-
-// Green beacon
-static NSUInteger const YRNGreenBeaconMajor = 9921;
-static NSUInteger const YRNGreenBeaconMinor = 23748;
+#import "CLBeacon+YRNBeaconManager.h"
+#import "UIColor+YRNBeacon.h"
 
 @interface YRNRangedBeaconsViewController () <YRNBeaconManagerDelegate>
 
@@ -87,6 +77,7 @@ typedef enum {
     [[cell majorLabel] setText:[[beacon major] description]];
     [[cell minorLabel] setText:[[beacon minor] description]];
     [[cell proximityView] setProximity:[beacon proximity]];
+    [[cell proximityView] setBeaconColor:[UIColor colorForBeacon:beacon]];
     return cell;
 }
 
@@ -209,36 +200,21 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EventType rangingEventType = None;
     
-    switch ([[beacon major] intValue])
+    if ([beacon isBlueBeacon])
     {
-        case YRNBlueBeaconMajor:
-            if([[beacon minor] intValue] == YRNBlueBeaconMinor)
-            {
-                NSLog(@"Blue beacon is Immediate!");
-                rangingEventType = MeetAlessio;
-            }
-            break;
-            
-        case YRNCyanBeaconMajor:
-            if([[beacon minor] intValue] == YRNCyanBeaconMinor)
-            {
-                NSLog(@"Cyan beacon is Immediate!");
-                rangingEventType = None;
-            }
-            break;
-            
-        case YRNGreenBeaconMajor:
-            if([[beacon minor] intValue] == YRNGreenBeaconMinor)
-            {
-                NSLog(@"Green beacon is Immediate!");
-                rangingEventType = Appsterdam;
-            }
-            break;
-            
-        default:
-            break;
+        NSLog(@"Blue beacon is Immediate!");
+        rangingEventType = MeetAlessio;
     }
-    
+    else if ([beacon isCyanBeacon])
+    {
+        NSLog(@"Cyan beacon is Immediate!");
+        rangingEventType = None;
+    }
+    else if ([beacon isGreenBeacon])
+    {
+        NSLog(@"Green beacon is Immediate!");
+        rangingEventType = Appsterdam;
+    }
     NSDictionary *notificationInfo = @{@"EventType": [NSNumber numberWithInt:rangingEventType],
                                        @"UUID": [[beacon proximityUUID] UUIDString],
                                        @"major": [beacon major],
