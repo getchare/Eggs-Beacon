@@ -110,8 +110,8 @@ typedef enum {
             {
                 case Welcome:
                     [eventViewController setImageName:@"veespo_logo.jpg"];
-                    [eventViewController setEventName:@"Benvenuto in Veespo"];
-                    [eventViewController setEventText:@"Stiamo creando uno strumento per dar voce a tutti che faciliti l’espressione e la comunicazione delle proprie idee e opinioni. Queste devono arrivare con forza a chi crea, organizza e amministra. Immaginiamo un network di opinioni condivise a cui piccole e grandi organizzazioni, pubbliche e private, possano accedere per migliorare efficacemente quello che ci circonda."];
+                    [eventViewController setEventName:@"Benvenuto!"];
+                    [eventViewController setEventText:@"Stiamo creando uno strumento per dar voce a tutti che faciliti l’espressione e la comunicazione delle proprie idee e opinioni. Siamo lieti di ospitarvi qui per questo Talk lab."];
                     break;
                 
                 case GoodBye:
