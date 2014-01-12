@@ -7,7 +7,22 @@
 //
 
 #import "UIColor+YRNBeacon.h"
+#import "CLBeacon+YRNBeaconManager.h"
 
 @implementation UIColor (YRNBeacon)
+
++ (UIColor *)colorForBeacon:(CLBeacon *)beacon
+{
+    UIColor *color = [UIColor greenColor];
+    if ([beacon isBlueBeacon])
+    {
+        color = [UIColor blueColor];
+    }
+    else if ([beacon isCyanBeacon])
+    {
+        color = [UIColor cyanColor];
+    }
+    return color;
+}
 
 @end
