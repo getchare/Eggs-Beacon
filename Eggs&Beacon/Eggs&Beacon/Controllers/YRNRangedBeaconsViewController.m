@@ -10,6 +10,7 @@
 #import "YRNBeaconManager.h"
 #import "YRNBeaconDetailViewController.h"
 #import "YRNEventDetailViewController.h"
+#import "YRNBeaconCell.h"
 
 @interface YRNRangedBeaconsViewController () <YRNBeaconManagerDelegate>
 
@@ -63,11 +64,22 @@ typedef enum {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"BeaconCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
-                                                            forIndexPath:indexPath];
+    YRNBeaconCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
+                                                          forIndexPath:indexPath];
     CLBeacon *beacon = [self beacons][indexPath.row];
-    cell.textLabel.text = [beacon description];
+    [[cell UUIDLabel] setText:[[beacon proximityUUID] UUIDString]];
+    [[cell majorLabel] setText:[[beacon major] description]];
+    [[cell minorLabel] setText:[[beacon minor] description]];
+    [[cell proximityView] setProximity:[beacon proximity]];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView
+  willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIColor *backgroundColor = indexPath.row % 2 != 0 ? [UIColor whiteColor] : [[UIColor yellowColor] colorWithAlphaComponent:0.1f];
+    [cell setBackgroundColor:backgroundColor];
 }
 
 #pragma mark - Navigation
