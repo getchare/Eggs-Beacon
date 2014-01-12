@@ -8,7 +8,7 @@
 
 #import "CLBeacon+YRNBeaconManager.h"
 
-static NSString * const YRNEstimoteUUIDString = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D";
+NSString * const YRNEstimoteUUIDString = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D";
 
 // Blue beacon
 static NSUInteger const YRNBlueBeaconMajor = 56595;

@@ -71,7 +71,7 @@
             </objects>
             <point key="canvasLocation" x="2003" y="567"/>
         </scene>
-        <!--Ranged Beacons View Controller-->
+        <!--Ranged Beacons View Controller - Ranged Beacons-->
         <scene sceneID="MSt-Ws-Csc">
             <objects>
                 <tableViewController id="SRv-3d-hcu" customClass="YRNRangedBeaconsViewController" sceneMemberID="viewController">
@@ -137,7 +137,7 @@
                             <outlet property="delegate" destination="SRv-3d-hcu" id="1og-tg-rec"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Heq-G1-Lw3"/>
+                    <navigationItem key="navigationItem" title="Ranged Beacons" id="Heq-G1-Lw3"/>
                     <connections>
                         <segue destination="4fY-DE-CYg" kind="modal" identifier="EventDetail" id="2gE-Sf-lHC"/>
                     </connections>
