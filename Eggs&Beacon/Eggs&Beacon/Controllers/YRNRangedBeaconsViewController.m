@@ -8,7 +8,6 @@
 
 #import "YRNRangedBeaconsViewController.h"
 #import "YRNBeaconManager.h"
-#import "YRNBeaconDetailViewController.h"
 #import "YRNEventDetailViewController.h"
 #import "YRNBeaconCell.h"
 
@@ -33,6 +32,9 @@ typedef enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIView *backgroundView = [[UIView alloc] init];
+    [backgroundView setBackgroundColor:[[self class] backgroundColor]];
+    [[self tableView] setBackgroundView:backgroundView];
     NSString *configurationFilePath = [[NSBundle mainBundle] pathForResource:@"BeaconRegions"
                                                                       ofType:@"plist"];
     NSError *error;
@@ -78,7 +80,7 @@ typedef enum {
   willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIColor *backgroundColor = indexPath.row % 2 != 0 ? [UIColor whiteColor] : [[UIColor yellowColor] colorWithAlphaComponent:0.1f];
+    UIColor *backgroundColor = indexPath.row % 2 != 0 ? [UIColor whiteColor] : [UIColor clearColor];
     [cell setBackgroundColor:backgroundColor];
 }
 
@@ -87,16 +89,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)prepareForSegue:(UIStoryboardSegue *)segue
                  sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"BeaconDetail"]) {
-        if ([sender isKindOfClass:[UITableViewCell class]]) {
-            UITableViewCell *cell = sender;
-            NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
-            CLBeacon *beacon = [self beacons][[indexPath row]];
-            YRNBeaconDetailViewController *beaconDetailViewController = [segue destinationViewController];
-            [beaconDetailViewController setBeacon:beacon];
-        }
-    }
-    else if ([[segue identifier] isEqualToString:@"EventDetail"]) {
+    if ([[segue identifier] isEqualToString:@"EventDetail"]) {
         UINavigationController *navigationController = segue.destinationViewController;
 		YRNEventDetailViewController *eventViewController = [[navigationController viewControllers] firstObject];
         NSDictionary *notificationInfo = [[self currentNotification] userInfo];
@@ -169,5 +162,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
     
 }
+
+#pragma mark - Colors
+
++ (UIColor *)backgroundColor
+{
+    return [[UIColor yellowColor] colorWithAlphaComponent:0.1f];
+}
+
 
 @end
