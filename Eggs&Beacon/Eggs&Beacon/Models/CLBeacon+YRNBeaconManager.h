@@ -8,6 +8,8 @@
 
 #import <CoreLocation/CoreLocation.h>
 
+extern NSString * const YRNEstimoteUUIDString;
+
 /**
  *  Compares hard coded available Estimote beacons.
  */
