@@ -179,7 +179,8 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
                 break;
             
             case CLRegionStateOutside:
-                if(oldRegionState != state)
+                // we want the event only if we passa from inside to outside
+                if(oldRegionState == CLRegionStateInside)
                 {
                     if([[self delegate] respondsToSelector:@selector(beaconManager:didExitRegion:)])
                     {
