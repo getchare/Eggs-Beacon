@@ -10,4 +10,21 @@
 
 @interface YRNBluetoothHUD : UIView
 
+/**
+ *  Shows the bluetooth hud.
+ */
++ (void)show;
+
+/**
+ *  Hides the bluetooth hud.
+ */
++ (void)hide;
+
+/**
+ *  Checks whether the hud is visible.
+ *
+ *  @return YES if the hud is visible, NO otherwise.
+ */
++ (BOOL)isVisible;
+
 @end
