@@ -30,6 +30,7 @@
 		04C339F518833A8B00561B2F /* veespo_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C339F318833A8B00561B2F /* veespo_logo@2x.png */; };
 		4B2CE34DEA764C57801EAF54 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB85FB26F57342ECADE3B60F /* libPods.a */; };
 		4D147F6B1883619400D29748 /* bluetooth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D147F6A1883619400D29748 /* bluetooth@2x.png */; };
+		4D147F6E188364C800D29748 /* YRNBluetoothHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D147F6D188364C800D29748 /* YRNBluetoothHUD.m */; };
 		4D1D68141882F00400BAB8E8 /* YRNBeaconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1D68131882F00400BAB8E8 /* YRNBeaconCell.m */; };
 		4D1D68171882F1ED00BAB8E8 /* YRNBeaconProximityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1D68161882F1ED00BAB8E8 /* YRNBeaconProximityView.m */; };
 		4D834C7818708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D834C7718708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.m */; };
@@ -77,6 +78,8 @@
 		04C339F218833A8B00561B2F /* veespo_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = veespo_logo.png; sourceTree = "<group>"; };
 		04C339F318833A8B00561B2F /* veespo_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "veespo_logo@2x.png"; sourceTree = "<group>"; };
 		4D147F6A1883619400D29748 /* bluetooth@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bluetooth@2x.png"; sourceTree = "<group>"; };
+		4D147F6C188364C800D29748 /* YRNBluetoothHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNBluetoothHUD.h; path = Views/YRNBluetoothHUD.h; sourceTree = "<group>"; };
+		4D147F6D188364C800D29748 /* YRNBluetoothHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRNBluetoothHUD.m; path = Views/YRNBluetoothHUD.m; sourceTree = "<group>"; };
 		4D1D68121882F00400BAB8E8 /* YRNBeaconCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNBeaconCell.h; path = Views/YRNBeaconCell.h; sourceTree = "<group>"; };
 		4D1D68131882F00400BAB8E8 /* YRNBeaconCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRNBeaconCell.m; path = Views/YRNBeaconCell.m; sourceTree = "<group>"; };
 		4D1D68151882F1ED00BAB8E8 /* YRNBeaconProximityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNBeaconProximityView.h; path = Views/YRNBeaconProximityView.h; sourceTree = "<group>"; };
@@ -252,6 +255,8 @@
 				4D1D68131882F00400BAB8E8 /* YRNBeaconCell.m */,
 				4D1D68151882F1ED00BAB8E8 /* YRNBeaconProximityView.h */,
 				4D1D68161882F1ED00BAB8E8 /* YRNBeaconProximityView.m */,
+				4D147F6C188364C800D29748 /* YRNBluetoothHUD.h */,
+				4D147F6D188364C800D29748 /* YRNBluetoothHUD.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -402,6 +407,7 @@
 				4D1D68141882F00400BAB8E8 /* YRNBeaconCell.m in Sources */,
 				0423821C187F22F100C6F7B9 /* YRNEventDetailViewController.m in Sources */,
 				4D1D68171882F1ED00BAB8E8 /* YRNBeaconProximityView.m in Sources */,
+				4D147F6E188364C800D29748 /* YRNBluetoothHUD.m in Sources */,
 				4D834C7818708CC300B715E1 /* CLBeaconRegion+YRNBeaconManager.m in Sources */,
 				4D98E7DE187074150034C6EB /* YRNRangedBeaconsViewController.m in Sources */,
 			);
