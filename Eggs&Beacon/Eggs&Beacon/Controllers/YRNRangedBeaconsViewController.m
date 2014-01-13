@@ -10,6 +10,7 @@
 #import "YRNBeaconManager.h"
 #import "YRNEventDetailViewController.h"
 #import "YRNBeaconCell.h"
+#import "YRNBluetoothHUD.h"
 #import "CLBeacon+YRNBeaconManager.h"
 #import "UIColor+YRNBeacon.h"
 
@@ -189,6 +190,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         {
             [self createNotificationForBeacon:beacon];
         }
+    }
+}
+
+- (void)beaconManager:(YRNBeaconManager *)manager didUpdateBluetoothState:(CBCentralManagerState)state
+{
+    if (state == CBCentralManagerStatePoweredOn)
+    {
+        [YRNBluetoothHUD hide];
+    }
+    else
+    {
+        [YRNBluetoothHUD show];
     }
 }
 
