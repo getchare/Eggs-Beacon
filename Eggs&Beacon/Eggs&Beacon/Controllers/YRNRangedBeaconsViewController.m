@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger, YRNEventType)
     YRNEventTypeWelcome,
     YRNEventTypeMeetAlessio,
     YRNEventTypeAppsterdam,
+    YRNEventTypeCoffee,
     YRNEventTypeGoodBye,
 };
 
@@ -134,6 +135,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                     [eventViewController setEventText:@"Ciao!! Sono Alessio Roberto. Chiedimi informazioni su Veespo, te ne parlerò per ore... Ah, lo sapevi che sono stato recentemente a New York?"];
                     break;
                     
+                case YRNEventTypeCoffee:
+                    [eventViewController setImageName:@"espresso.jpg"];
+                    [eventViewController setEventName:@"Un caffè?"];
+                    [eventViewController setEventText:@"Questo è un esempio di interazione con un beacon. L'app potrebbe offrirvi la lista dei caffè, una promozione o addirittura farvi pagare quanto consumato."];
+                    break;
+                    
                 case YRNEventTypeAppsterdam:
                     [eventViewController setImageName:@"appsterdam"];
                     [eventViewController setEventName:@"Appsterdam Milan"];
@@ -230,7 +237,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     else if ([beacon isCyanBeacon])
     {
         NSLog(@"Cyan beacon is Immediate!");
-        rangingEventType = YRNEventTypeNone;
+        rangingEventType = YRNEventTypeCoffee;
     }
     else if ([beacon isGreenBeacon])
     {
@@ -266,6 +273,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
             
         case YRNEventTypeMeetAlessio:
             notificationText = @"Ciao Alessio!";
+            break;
+            
+        case YRNEventTypeCoffee:
+            notificationText = @"Un caffè?";
             break;
             
         case YRNEventTypeAppsterdam:

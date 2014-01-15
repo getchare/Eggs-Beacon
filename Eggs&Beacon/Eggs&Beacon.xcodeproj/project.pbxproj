@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0423821C187F22F100C6F7B9 /* YRNEventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0423821B187F22F100C6F7B9 /* YRNEventDetailViewController.m */; };
+		0435CA75188746E5003FFD95 /* espresso.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0435CA73188746E5003FFD95 /* espresso.jpg */; };
+		0435CA76188746E5003FFD95 /* espresso@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0435CA74188746E5003FFD95 /* espresso@2x.jpg */; };
 		0494208C1854AC5300D2EC77 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0494208B1854AC5300D2EC77 /* Foundation.framework */; };
 		0494208E1854AC5300D2EC77 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0494208D1854AC5300D2EC77 /* CoreGraphics.framework */; };
 		049420901854AC5300D2EC77 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0494208F1854AC5300D2EC77 /* UIKit.framework */; };
@@ -52,6 +54,8 @@
 /* Begin PBXFileReference section */
 		0423821A187F22F100C6F7B9 /* YRNEventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNEventDetailViewController.h; path = Controllers/YRNEventDetailViewController.h; sourceTree = "<group>"; };
 		0423821B187F22F100C6F7B9 /* YRNEventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRNEventDetailViewController.m; path = Controllers/YRNEventDetailViewController.m; sourceTree = "<group>"; };
+		0435CA73188746E5003FFD95 /* espresso.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = espresso.jpg; sourceTree = "<group>"; };
+		0435CA74188746E5003FFD95 /* espresso@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "espresso@2x.jpg"; sourceTree = "<group>"; };
 		049420881854AC5300D2EC77 /* Eggs&Beacon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Eggs&Beacon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0494208B1854AC5300D2EC77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0494208D1854AC5300D2EC77 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -125,6 +129,8 @@
 		041DF0431881962500B8CA3F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0435CA73188746E5003FFD95 /* espresso.jpg */,
+				0435CA74188746E5003FFD95 /* espresso@2x.jpg */,
 				04C339F218833A8B00561B2F /* veespo_logo.png */,
 				04C339F318833A8B00561B2F /* veespo_logo@2x.png */,
 				04C339F018830DF300561B2F /* appsterdam.png */,
@@ -342,6 +348,8 @@
 				04C339F118830DF300561B2F /* appsterdam.png in Resources */,
 				04C339F518833A8B00561B2F /* veespo_logo@2x.png in Resources */,
 				049420CD1854F87300D2EC77 /* BeaconRegions.plist in Resources */,
+				0435CA76188746E5003FFD95 /* espresso@2x.jpg in Resources */,
+				0435CA75188746E5003FFD95 /* espresso.jpg in Resources */,
 				04C339EF1882FB5A00561B2F /* pelo.jpg in Resources */,
 				04C339F418833A8B00561B2F /* veespo_logo.png in Resources */,
 				049420961854AC5300D2EC77 /* InfoPlist.strings in Resources */,
