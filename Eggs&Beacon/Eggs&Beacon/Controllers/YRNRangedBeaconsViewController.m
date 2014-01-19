@@ -18,10 +18,9 @@ typedef NS_ENUM(NSUInteger, YRNEventType)
 {
     YRNEventTypeNone = 0,
     YRNEventTypeWelcome,
-    YRNEventTypeMeetAlessio,
     YRNEventTypeAppsterdam,
     YRNEventTypeCoffee,
-    YRNEventTypeGoodBye,
+    YRNEventTypeGoodBye
 };
 
 @interface YRNRangedBeaconsViewController () <YRNBeaconManagerDelegate>
@@ -118,33 +117,27 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
             switch (eventType)
             {
                 case YRNEventTypeWelcome:
-                    [eventViewController setImageName:@"veespo_logo.jpg"];
-                    [eventViewController setEventName:@"Benvenuto!"];
-                    [eventViewController setEventText:@"Stiamo creando uno strumento per dar voce a tutti che faciliti l’espressione e la comunicazione delle proprie idee e opinioni. Siamo lieti di ospitarvi qui per questo Talk lab."];
+                    [eventViewController setImageName:@"veespo_logo"];
+                    [eventViewController setEventName:@"Welcome to Veespo!"];
+                    [eventViewController setEventText:@"An Italian startup. Veespo allows you to gather detailed feedback and opinions in a matter of seconds on every app and website. Veespo welcomes you to this Talk Lab."];
                     break;
                 
                 case YRNEventTypeGoodBye:
-                    [eventViewController setImageName:@"veespo_logo"];
-                    [eventViewController setEventName:@"Bye bye"];
-                    [eventViewController setEventText:@"Devo ancora trovare un'immagine adatta :P"];
-                    break;
-                   
-                case YRNEventTypeMeetAlessio:
-                    [eventViewController setImageName:@"pelo.jpg"];
-                    [eventViewController setEventName:@"Conosci New York?"];
-                    [eventViewController setEventText:@"Ciao!! Sono Alessio Roberto. Chiedimi informazioni su Veespo, te ne parlerò per ore... Ah, lo sapevi che sono stato recentemente a New York?"];
+                    [eventViewController setImageName:@"appsterdam"];
+                    [eventViewController setEventName:@"Bye!"];
+                    [eventViewController setEventText:@"It was nice to have you here. For further informations please go to: http://milan.appsterdam.rs"];
                     break;
                     
                 case YRNEventTypeCoffee:
                     [eventViewController setImageName:@"espresso.jpg"];
-                    [eventViewController setEventName:@"Un caffè?"];
-                    [eventViewController setEventText:@"Questo è un esempio di interazione con un beacon. L'app potrebbe offrirvi la lista dei caffè, una promozione o addirittura farvi pagare quanto consumato."];
+                    [eventViewController setEventName:@"Coffee?"];
+                    [eventViewController setEventText:@"This is an example of interaction with a beacon. The app could present the list of available coffees, offers or even charge you for what you have drunk."];
                     break;
                     
                 case YRNEventTypeAppsterdam:
                     [eventViewController setImageName:@"appsterdam"];
                     [eventViewController setEventName:@"Appsterdam Milan"];
-                    [eventViewController setEventText:@"Appsterdam è un'associazione nata da un'idea di Mike Lee, sviluppatore iOS di fama mondiale, che ha deciso di creare in Olanda una rete di professionisti nell'ambito del mondo delle applicazioni - siano esse mobile, web, embedded o desktop. Il gruppo promuove la cultura digitale in maniera completa: tra di noi ci sono soprattutto sviluppatori e designer, ma la nostra comunità include anche esperti di comunicazione, di marketing, di economia o legge; ogni singola idea è valida e può trovare ospitalità in Appsterdam."];
+                    [eventViewController setEventText:@"The best place in the world to be and become an App Maker! Welcome to the Milan Ambassy!"];
                     break;
                 
                 default:
@@ -165,6 +158,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)beaconManager:(YRNBeaconManager *)manager didEnterRegion:(CLBeaconRegion *)region
 {
+    NSLog(@"Did enter region: %@", [region identifier]);
+    
     // estimote region
     if([[[region proximityUUID] UUIDString] isEqualToString:YRNEstimoteUUIDString])
     {
@@ -175,12 +170,16 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)beaconManager:(YRNBeaconManager *)manager didExitRegion:(CLBeaconRegion *)region
 {
+    NSLog(@"Did exit region: %@", [region identifier]);
+    
     // estimote region
     if([[[region proximityUUID] UUIDString] isEqualToString:YRNEstimoteUUIDString])
     {
         [self createNotification:YRNEventTypeGoodBye
                        forRegion:region];
     }
+    
+    [[self tableView] reloadData];
 }
 
 - (void)beaconManager:(YRNBeaconManager *)manager
@@ -210,6 +209,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     {
         [YRNBluetoothHUD show];
     }
+    
+    [[self tableView] reloadData];
 }
 
 - (IBAction)closeEventModal:(UIStoryboardSegue *)segue
@@ -232,7 +233,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     if ([beacon isBlueBeacon])
     {
         NSLog(@"Blue beacon is Immediate!");
-        rangingEventType = YRNEventTypeMeetAlessio;
+        rangingEventType = YRNEventTypeAppsterdam;
     }
     else if ([beacon isCyanBeacon])
     {
@@ -264,23 +265,19 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     switch (notificationType)
     {
         case YRNEventTypeWelcome:
-            notificationText = @"Benvenuto a Veespo!";
+            notificationText = @"Welcome to Veespo!";
             break;
             
         case YRNEventTypeGoodBye:
-            notificationText = @"Ciao ciao!";
-            break;
-            
-        case YRNEventTypeMeetAlessio:
-            notificationText = @"Ciao Alessio!";
+            notificationText = @"Bye bye!";
             break;
             
         case YRNEventTypeCoffee:
-            notificationText = @"Un caffè?";
+            notificationText = @"Fancy a coffee?";
             break;
             
         case YRNEventTypeAppsterdam:
-            notificationText = @"Vuoi conoscere Appsterdam?";
+            notificationText = @"Do you know Appsterdam?";
             break;
             
         default:

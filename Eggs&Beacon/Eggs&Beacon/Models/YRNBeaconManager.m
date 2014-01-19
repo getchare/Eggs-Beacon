@@ -2,7 +2,7 @@
 //  YRNBeaconManager.m
 //  Eggs&Beacon
 //
-//  Created by Marco on 08/12/13.
+//  Created by Marco Chareyron on 08/12/13.
 //  Copyright (c) 2013 Yron Lab. All rights reserved.
 //
 
@@ -14,7 +14,6 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, assign, getter = isInsideBeaconRegion) BOOL insideBeaconRegion;
-@property (nonatomic, strong) NSMutableDictionary *regionsState;
 
 @property (nonatomic, strong) CBCentralManager *bluetoothCentralManager;
 
@@ -79,7 +78,6 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
         {
             [self setLocationManager:[[CLLocationManager alloc] init]];
             [[self locationManager] setDelegate:self];
-            [self setRegionsState:[NSMutableDictionary dictionary]];
         }
     }
 }
@@ -101,9 +99,6 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
         return NO;
     }
     
-    // set state to unknown
-    [[self regionsState] setObject:@(CLRegionStateUnknown) forKey:[[region proximityUUID] UUIDString]];
-    
     // start monitoring new region
     [[self locationManager] startMonitoringForRegion:region];
     [[self locationManager] requestStateForRegion:region];
@@ -112,9 +107,6 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
 
 - (void)unregisterBeaconRegion:(CLBeaconRegion *)region
 {
-    // delete region from status dictionary
-    [[self regionsState] removeObjectForKey:[[region proximityUUID] UUIDString]];
-    
     // stop ranging (?)
     [[self locationManager] stopRangingBeaconsInRegion:region];
     
@@ -156,41 +148,41 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
 
 #pragma mark - CoreLocation delegate methods
 
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
+{
+    CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+    
+    if([[self delegate] respondsToSelector:@selector(beaconManager:didEnterRegion:)])
+    {
+        [[self delegate] beaconManager:self
+                        didEnterRegion:beaconRegion];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
+{
+    CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+    
+    if([[self delegate] respondsToSelector:@selector(beaconManager:didExitRegion:)])
+    {
+        [[self delegate] beaconManager:self
+                         didExitRegion:beaconRegion];
+    }
+}
+
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
     if([region isKindOfClass:[CLBeaconRegion class]])
     {
         CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
-        CLRegionState oldRegionState = [[[self regionsState] objectForKey:[[beaconRegion proximityUUID] UUIDString]] intValue];
-        NSLog(@"Region (%@) state changed. Old: %d\tNew: %d", [beaconRegion identifier], oldRegionState, state);
         switch(state)
         {
             case CLRegionStateInside:
-                if(oldRegionState != state)
-                {
-                    if([[self delegate] respondsToSelector:@selector(beaconManager:didEnterRegion:)])
-                    {
-                        [[self delegate] beaconManager:self
-                                        didEnterRegion:beaconRegion];
-                    }
-                    
-                    [[self locationManager] startRangingBeaconsInRegion:beaconRegion];
-                }
+                [[self locationManager] startRangingBeaconsInRegion:beaconRegion];
                 break;
             
             case CLRegionStateOutside:
-                // we want the event only if we passa from inside to outside
-                if(oldRegionState == CLRegionStateInside)
-                {
-                    if([[self delegate] respondsToSelector:@selector(beaconManager:didExitRegion:)])
-                    {
-                        [[self delegate] beaconManager:self
-                                         didExitRegion:beaconRegion];
-                    }
-                    
-                    [self setInsideBeaconRegion:NO];
-                    [[self locationManager] stopRangingBeaconsInRegion:beaconRegion];
-                }
+                [[self locationManager] stopRangingBeaconsInRegion:beaconRegion];
                 break;
                 
             case CLRegionStateUnknown:
@@ -199,23 +191,19 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
             default:
                 break;
         }
-        
-        [[self regionsState] setObject:@(state) forKey:[[beaconRegion proximityUUID] UUIDString]];
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
-    if([beacons count] > 0)
+    if([[self delegate] respondsToSelector:@selector(beaconManager:didRangeBeacons:inRegion:)] && ![self monitoredBeaconsAreEqualToBeacons:beacons])
     {
-        if([[self delegate] respondsToSelector:@selector(beaconManager:didRangeBeacons:inRegion:)] && ![self monitoredBeaconsAreEqualToBeacons:beacons])
-        {
-            [[self delegate] beaconManager:self
-                           didRangeBeacons:beacons
-                                  inRegion:region];
-        }
-        [self setMonitoredBeacons:[beacons copy]];
+        [[self delegate] beaconManager:self
+                       didRangeBeacons:beacons
+                              inRegion:region];
     }
+    
+    [self setMonitoredBeacons:[beacons copy]];
 }
 
 - (BOOL)monitoredBeaconsAreEqualToBeacons:(NSArray *)newlyRangedBeacons

@@ -34,7 +34,7 @@
 		<key>notifyEntryStateOnDisplay</key>
 		<true/>
 		<key>notifyOnEntry</key>
-		<false/>
+		<true/>
 		<key>notifyOnExit</key>
 		<true/>
 	</dict>
