@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>proximityUUID</key>
-		<string>00000000-0000-0000-0000-000000000000</string>
+		<string>5AFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF</string>
 		<key>identifier</key>
 		<string>HiBeacon custom</string>
 		<key>major</key>

@@ -34,5 +34,7 @@
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>iPhone</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Location is used to monitor and range beacons</string>
 </dict>
 </plist>

@@ -78,6 +78,12 @@ static NSUInteger const YRNMaxMonitoredRegions = 20;
         {
             [self setLocationManager:[[CLLocationManager alloc] init]];
             [[self locationManager] setDelegate:self];
+            // iOS 8 new authorization procedure
+            if ([[self locationManager] respondsToSelector:@selector(requestWhenInUseAuthorization)])
+            {
+                // for beacon monitoring we need the Always type of authorization
+                [[self locationManager] requestAlwaysAuthorization];
+            }
         }
     }
 }
