@@ -30,7 +30,6 @@
 		04C339F118830DF300561B2F /* appsterdam.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C339F018830DF300561B2F /* appsterdam.png */; };
 		04C339F418833A8B00561B2F /* veespo_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C339F218833A8B00561B2F /* veespo_logo.png */; };
 		04C339F518833A8B00561B2F /* veespo_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C339F318833A8B00561B2F /* veespo_logo@2x.png */; };
-		4B2CE34DEA764C57801EAF54 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB85FB26F57342ECADE3B60F /* libPods.a */; };
 		4D147F6B1883619400D29748 /* bluetooth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D147F6A1883619400D29748 /* bluetooth@2x.png */; };
 		4D147F6E188364C800D29748 /* YRNBluetoothHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D147F6D188364C800D29748 /* YRNBluetoothHUD.m */; };
 		4D1D68141882F00400BAB8E8 /* YRNBeaconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1D68131882F00400BAB8E8 /* YRNBeaconCell.m */; };
@@ -96,8 +95,6 @@
 		4D94693718831F7E00F744E9 /* CLBeacon+YRNBeaconManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CLBeacon+YRNBeaconManager.m"; path = "Models/CLBeacon+YRNBeaconManager.m"; sourceTree = "<group>"; };
 		4D98E7DC187074140034C6EB /* YRNRangedBeaconsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRNRangedBeaconsViewController.h; path = Controllers/YRNRangedBeaconsViewController.h; sourceTree = "<group>"; };
 		4D98E7DD187074150034C6EB /* YRNRangedBeaconsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRNRangedBeaconsViewController.m; path = Controllers/YRNRangedBeaconsViewController.m; sourceTree = "<group>"; };
-		F47719D0D1E3465F8CE8B1A4 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		FB85FB26F57342ECADE3B60F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +106,6 @@
 				0494208E1854AC5300D2EC77 /* CoreGraphics.framework in Frameworks */,
 				049420901854AC5300D2EC77 /* UIKit.framework in Frameworks */,
 				0494208C1854AC5300D2EC77 /* Foundation.framework in Frameworks */,
-				4B2CE34DEA764C57801EAF54 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +144,6 @@
 				049420AA1854AC5400D2EC77 /* Eggs&BeaconTests */,
 				0494208A1854AC5300D2EC77 /* Frameworks */,
 				049420891854AC5300D2EC77 /* Products */,
-				F47719D0D1E3465F8CE8B1A4 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -169,7 +164,6 @@
 				0494208D1854AC5300D2EC77 /* CoreGraphics.framework */,
 				0494208F1854AC5300D2EC77 /* UIKit.framework */,
 				049420A41854AC5400D2EC77 /* XCTest.framework */,
-				FB85FB26F57342ECADE3B60F /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -274,11 +268,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 049420B41854AC5400D2EC77 /* Build configuration list for PBXNativeTarget "Eggs&Beacon" */;
 			buildPhases = (
-				7F43B08A1B4A4627B5074329 /* Check Pods Manifest.lock */,
 				049420841854AC5300D2EC77 /* Sources */,
 				049420851854AC5300D2EC77 /* Frameworks */,
 				049420861854AC5300D2EC77 /* Resources */,
-				50A5D9A37D344D9B964E3DDA /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -314,7 +306,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = YRN;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Yron Lab";
 				TargetAttributes = {
 					049420A21854AC5400D2EC77 = {
@@ -368,39 +360,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		50A5D9A37D344D9B964E3DDA /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7F43B08A1B4A4627B5074329 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		049420841854AC5300D2EC77 /* Sources */ = {
@@ -463,7 +422,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -502,7 +460,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -533,7 +490,6 @@
 		};
 		049420B51854AC5400D2EC77 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F47719D0D1E3465F8CE8B1A4 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -547,7 +503,6 @@
 		};
 		049420B61854AC5400D2EC77 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F47719D0D1E3465F8CE8B1A4 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -562,7 +517,6 @@
 		049420B81854AC5400D2EC77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Eggs&Beacon.app/Eggs&Beacon";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -585,7 +539,6 @@
 		049420B91854AC5400D2EC77 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Eggs&Beacon.app/Eggs&Beacon";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5037.2" systemVersion="13B3116" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="bht-eH-nGG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5051" systemVersion="13B3116" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="bht-eH-nGG">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -69,7 +69,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DFA-pb-xf2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="YSo-lL-4H5" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2003" y="567"/>
+            <point key="canvasLocation" x="1984" y="541"/>
         </scene>
         <!--Ranged Beacons View Controller - Ranged Beacons-->
         <scene sceneID="MSt-Ws-Csc">
